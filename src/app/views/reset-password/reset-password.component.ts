@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthetificationService } from '../../serviceauth/authetification.service';
 
 @Component({
@@ -13,7 +13,7 @@ export class ResetPasswordComponent implements OnInit {
  
   token:any;
 
-  constructor(private route:ActivatedRoute, private auth:AuthetificationService) { }
+  constructor(private route:ActivatedRoute, private auth:AuthetificationService,private router : Router) { }
 
   error={
     password:null
@@ -21,6 +21,7 @@ export class ResetPasswordComponent implements OnInit {
   message:any;
 
   ngOnInit(): void {
+    console.log("route de resete password  "+this.router.url);
     this.route.queryParams.subscribe(param => {
       this.token = param.token;
     })

@@ -1,0 +1,161 @@
+
+<div class="container">
+    <div class="main-body">
+    
+      
+    
+          <div class="row gutters-sm">
+            <div class="col-md-4"  *ngIf="mission">
+                <div class="panel">
+                  <div class="panel-heading">
+                    <span class="panel-icon">
+                      <i class="fa fa-star"></i>
+                    </span>
+                    <span class="panel-title"> Details Mission</span>
+                  </div>
+                  <div class="panel-body pn">
+                    <table class="table mbn tc-icon-1 tc-med-2 tc-bold-last">
+                    
+                      <tbody>
+                        <tr>
+                          <td>
+                            <span class="fa fa-phone text-primary"></span>
+                          </td>
+                          <td>Date</td>
+                          <td> 
+                            {{mission.date}}</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <span class="fa fa-map-marker text-primary"></span>
+                          </td>
+                          <td>Adress</td>
+                          <td>
+                            {{mission.adress}}</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <span class="fa fa-clock-o text-info"></span>
+                          </td>
+                          <td>temps de depart</td>
+                          <td>
+                            {{mission.departTime}}</td>
+                        </tr>
+      
+                        <tr>
+                          <td>
+                            <span class="fa fa-clock-o text-info"></span>
+                          </td>
+                          <td>Duree de livraison</td>
+                          <td *ngIf="duration">
+                          {{duration}}</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <span class="fa fa-road text-info"></span>
+                          </td>
+                          <td>Distance</td>
+                          <td *ngIf="distance">
+                           {{distance}} Km</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <span class="fa fa-car text-info"></span>
+                          </td>
+                          <td>Matricule Vehicule</td>
+                          <td *ngIf="vehicule">
+                          {{vehicule.matricule}}</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <span class="fa fa-car text-info"></span>
+                          </td>
+                          <td>Tél destinataire</td>
+                          <td>
+                          {{mission.tel_Dest}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="panel">
+                  <div class="panel-heading">
+                    <span class="panel-icon">
+                      <i class="fa fa-trophy"></i>
+                    </span>
+                    <span class="panel-title">Bon de livraison </span>
+                  </div>
+                  <div class="panel-body pb5"> {{mission.description}}</div>
+                </div>
+              
+              </div>
+              <div class="col-md-8">
+
+              <div class="card">
+               <div class="card-header">
+              <span style="font-family:Georgia, 'Times New Roman', Times, serif">Chemin à suivre </span> 
+              </div>
+                <div class="card-body">
+
+                
+                 
+                        <div class="map-border">
+                            <div id="map"></div>
+                         
+               
+                
+                  
+                
+              </div>
+
+             
+            </div>
+           
+          </div>
+          <div class="col-md-12" >
+            <button type="button" class="btn btn-primary" data-toggle="modal" (click)="getparam(mission.id)" (click)="smallModal.show()" [disabled]="afficherlancer" >
+              Lancer 
+            </button>
+
+            <!-- <button type="button" class="btn btn-success" (click)="getparam(mission.id)" (click)="smallModal2.show()" [disabled]="afficherterminer">Terminer </button> -->
+            <button type="button" class="btn btn-success" (click)="terminer(mission.id)" [disabled]="afficherterminer">Terminer </button>
+
+          </div>
+
+        </div>
+      
+      
+    </div>
+
+  
+    <div  bsModal #smallModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <p>Êtes-vous sûr de lancer cet mission ?</p>
+           
+         
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="smallModal.hide()">Close</button>
+            <button type="submit" class="btn btn-danger" (click)="lancer(d)">Lancer</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div>
+
+    <!-- <div  bsModal #smallModal2="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <p>Êtes-vous sûr de terminer cet mission ?</p>
+           
+         
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="smallModal.hide()">Close</button>
+            <button type="submit" class="btn btn-danger" (click)="terminer(d)">Termine</button>
+          </div>
+        </div>
+      </div>
+    </div> -->

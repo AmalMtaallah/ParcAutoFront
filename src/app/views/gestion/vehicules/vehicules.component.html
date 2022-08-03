@@ -1,0 +1,87 @@
+
+
+  <div class="animated fadeIn">
+    <div class="card">
+      <div class="card-header" style="background-color: rgb(12, 124, 124);">
+        <div class="row">
+          <div class="col-md-6">
+            <h3 style="color:white;font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">Véhicules Disponibles</h3>
+  
+          </div>
+         <div class="col-md-6" style="text-align:right">
+  
+        
+          <button type="button" routerLink="/gestion/addvehicule"class="btn btn-light" style="text-align: right;"><i class="fa fa-plus"></i> Add Véhciuels</button>
+          <button type="button" class="btn btn-light" (click)="downloadpdf()"><i class="cui-cloud-download icons" style="text-align: right;"></i> Download PDF</button>
+        </div>
+      </div>
+    </div>
+      <div class="card-body">
+        <div class="row mb-3">
+          <div class="col-md-4 offset-md-8">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fa fa-search"></i></span>
+              </div>
+              <input type="text" class="form-control" (ngModelChange)="recherchemissionbyparametre(keyy.value)" #keyy="ngModel" ngModel name="keyy" placeholder="Search by name"/>
+            </div>
+          </div>
+        </div>
+        <table class="table table-bordered" >
+          <thead>
+            <tr>
+              <th>Marque</th>
+              <th>Modéle</th>
+              <th>Matricule</th>
+              <th>Couleur</th>
+              <th>Date mise en circulation</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let vehi of vehicules | paginate: { itemsPerPage: 4, currentPage: p }">
+            <td>{{vehi.marque}}</td>
+            <td>{{vehi.modele}}</td>
+            <td>{{vehi.matricule}}</td>
+            <td>{{vehi.couleur}}</td>
+
+            <!-- <td>
+              <span *ngIf="vehi.dispovehi==='0'" class="badge badge-success">Disponible</span>
+              <span *ngIf="vehi.dispovehi==='1'" class="badge badge-danger">En cours de livraison</span>
+
+            </td> -->
+            <td>{{vehi.datepremiere}}</td>
+            <td>
+            <button type="button" class="btn btn-light btn-circle" data-toggle="modal" (click)="getparam(vehi.id)" (click)="smallModal.show()"><i class="fa fa-trash-o"></i></button>
+            <button type="button" class="btn btn-light btn-circle" (click)="detailVehi(vehi.id)"><i class="fa fa-eye"></i></button>
+            <button type="button" class="btn btn-light btn-circle" (click)="updateVehi(vehi.id)"><i class="fa fa-pencil" ></i></button>
+          </td>
+          </tr> 
+        </tbody>
+         
+        </table>
+        <div style="text-align: center;" >
+  
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  
+  
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div  bsModal #smallModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <p>Êtes-vous sûr de vouloir supprimer ?</p>
+         
+       
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="smallModal.hide()">Close</button>
+          <button type="submit" class="btn btn-danger" (click)="SuprimerVehicule(d)">supprimer</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div>

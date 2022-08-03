@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthetificationService } from '../../serviceauth/authetification.service';
 
 @Component({
-  selector: 'app-forgotpass',
+  selector: 'app-dashboard',
   templateUrl: './forgotpass.component.html',
   styleUrls: ['./forgotpass.component.css']
 })
@@ -15,9 +16,10 @@ export class ForgotpassComponent implements OnInit {
   };
   message:any;
   wait:boolean = false;
-  constructor(private auth:AuthetificationService) { }
+  constructor(private auth:AuthetificationService ,private router  :Router) { }
 
   ngOnInit(): void {
+    console.log(" test route in forget password"+ this.router.url)
   }
 
   onSubmit(form:NgForm){

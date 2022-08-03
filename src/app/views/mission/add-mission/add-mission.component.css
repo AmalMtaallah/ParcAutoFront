@@ -1,0 +1,15 @@
+@import "~leaflet/dist/leaflet.css";
+
+.map-wrapper {
+  position: absolute;
+  
+}
+
+.map-border {
+  border: px solid beige;
+  height: 360px;
+}
+
+#map {
+  height: 100%;
+}

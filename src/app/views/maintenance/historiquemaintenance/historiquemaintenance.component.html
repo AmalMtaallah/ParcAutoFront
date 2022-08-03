@@ -1,0 +1,209 @@
+<div class="col-lg-12">
+    <div class="card">
+        <div class="card-header" style="background-color: rgb(12, 124, 124);">
+          <div><h2 style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;color:white">Historique Maintenance</h2></div>
+       </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+          
+              <input class="form-control col-md-6" id="date-input" width="50px"  name="key"  #key="ngModel" ngModel  required placeholder="Séléctioner une date" type="date">
+               </div>
+               <div class="col-md-6">
+                <input  type="search" style="float: right;" class="form-control col-md-6 "     placeholder="Search"/>    
+            </div>
+          
+            
+          </div>
+          <br>
+          <div class="border border-light p-3 mb-4" style="background-color: white"> 
+            <div class="row"  >
+            <div class="col-md-3">
+
+            <div class="form-check">
+                <input
+                  mdbCheckbox
+                  class="form-check-input"
+                  type="checkbox"
+                  [(ngModel)]="affichervidange"
+                  [value]="-1"
+                  id="flexCheckDefault"
+                  (change)="onChangeFood($event)"
+                />
+                <label class="form-check-label" for="flexCheckDefault">
+                    Vidange
+                </label>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-check">
+                <input
+                  mdbCheckbox
+                  type="checkbox"
+                  class="form-check-input"
+                  [(ngModel)]="afficherpneu"
+                  [value]="-1"
+                  id="flexCheckDefault"
+                  (change)="onChangeFood2($event)"
+                />
+                <label class="form-check-label" for="flexCheckDefault">
+                    Changement pneu
+                </label>
+              </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-check">
+                  <input
+                    mdbCheckbox
+                    class="form-check-input"
+                    type="checkbox"
+                    [(ngModel)]="afficherVT"
+                    [value]="-1"
+                    id="flexCheckDefault"
+                    (change)="onChangeFood3($event)"
+                  />
+                  <label class="form-check-label" for="flexCheckDefault">
+                      Visite technique
+                  </label>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-check">
+                  <input
+                    mdbCheckbox
+                    class="form-check-input"
+                    type="checkbox"
+                    [(ngModel)]="afficherassu"
+                    [value]="-1"
+                    id="flexCheckDefault"
+                    (change)="onChangeFood4($event)"
+                  />
+                  <label class="form-check-label" for="flexCheckDefault">
+                      Assurance
+                  </label>
+                </div>
+              </div>
+          </div>
+        </div>
+          <!-- <span style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;" *ngIf="missiontermin.length ===0">Aucun Mission Trouvée</span>   -->
+                <!--tableau vidange-->
+                <div [hidden]="!affichervidange">
+                    <h4 style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">Historique Vidange</h4>
+
+          <table class="table table-bordered" >
+            <thead>
+              <tr>
+                <th>Matricule</th>
+                <th>Marque</th>
+                <th>Modél</th>
+                <th>date Vidange</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let mis of historiquevidange | paginate: { itemsPerPage: 5, currentPage: p }">
+                <td>{{mis.matricule}}</td>
+                <td>{{mis.marque}}</td>
+                <td>{{mis.modele}}</td>
+                <td>{{mis.datemaintenance}}</td>
+               
+              </tr>
+              
+            </tbody>
+          </table>
+          <div style="text-align: center;" >
+  
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    
+    
+          </div>
+          
+        </div>
+          <!--tableau  changement pneu -->
+         <div [hidden]="!afficherpneu">
+          <h4 style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">Hisotique Changement pneu</h4>
+          <table class="table table-bordered" >
+            <thead>
+              <tr>
+                <th>Matricule</th>
+                <th>Marque</th>
+                <th>Modél</th>
+                <th>date Changement pneu</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let mis of historiquepneu | paginate: { itemsPerPage: 5, currentPage: p }">
+                <td>{{mis.matricule}}</td>
+                <td>{{mis.marque}}</td>
+                <td>{{mis.modele}}</td>
+                <td>{{mis.datemaintenance}}</td>
+              </tr>
+              
+            </tbody>
+          </table>
+          <div style="text-align: center;" >
+  
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    
+    
+          </div>
+        </div>
+        <!--tableau histo visite tech-->
+        <div [hidden]="!afficherVT">
+          <h4 style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">Hisotique Visite Technique</h4>
+          <table class="table table-bordered" >
+            <thead>
+              <tr>
+                <th>Matricule</th>
+                <th>Marque</th>
+                <th>Modél</th>
+                <th>date Visite technique</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let mis of historiquevTech | paginate: { itemsPerPage: 5, currentPage: p }">
+                <td>{{mis.matricule}}</td>
+                <td>{{mis.marque}}</td>
+                <td>{{mis.modele}}</td>
+                <td>{{mis.datemaintenance}}</td>
+              </tr>
+              
+            </tbody>
+          </table>
+          <div style="text-align: center;" >
+  
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    
+    
+          </div>
+        </div>
+        <div [hidden]="!afficherassu">
+          <h4 style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">Hisotique Assurance</h4>
+          <table class="table table-bordered" >
+            <thead>
+              <tr>
+                <th>Matricule</th>
+                <th>Marque</th>
+                <th>Modél</th>
+                <th>date Assurance</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let mis of histoasurance | paginate: { itemsPerPage: 5, currentPage: p }">
+                <td>{{mis.matricule}}</td>
+                <td>{{mis.marque}}</td>
+                <td>{{mis.modele}}</td>
+                <td>{{mis.datemaintenance}}</td>
+              </tr>
+              
+            </tbody>
+          </table>
+          <div style="text-align: center;" >
+  
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    
+    
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>

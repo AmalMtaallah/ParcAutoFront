@@ -3,7 +3,6 @@ import {FormGroup, FormBuilder, Validators, FormControl, AbstractControl, FormGr
 
 import { ValidatorFn, ValidationErrors } from '@angular/forms';
 import { ValidationFormsService } from './validation-forms.service';
-import {FormsComponent} from '../../base/forms.component';
 
 /** passwords must match - custom validator */
 export const confirmPasswordValidator: ValidatorFn = (control: FormGroup): ValidationErrors | null => {

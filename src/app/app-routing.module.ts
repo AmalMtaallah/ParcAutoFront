@@ -1,22 +1,73 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+// import { ChauffeurLayoutComponent } from './chauffeur';
 
 // Import Containers
 import { DefaultLayoutComponent } from './containers';
+import { AfterLoginService } from './serviceauth/after-login.service';
+import { BeforeLoginService } from './serviceauth/before-login.service';
 
 import { P404Component } from './views/error/404.component';
 import { P500Component } from './views/error/500.component';
 import { ForgotpassComponent } from './views/forgotpass/forgotpass.component';
 import { LoginComponent } from './views/login/login.component';
+import { LogoutComponent } from './views/logout/logout.component';
+import { ProfileadminComponent } from './views/profileadmin/profileadmin.component';
 import { RegisterComponent } from './views/register/register.component';
 import { ResetPasswordComponent } from './views/reset-password/reset-password.component';
-
+// import { ChauffeurModule } from './views/chauffeurInterface/chauffeur.module';
+import { AfterLoginChaufService } from './serviceauth/after-loginchauf.service';
+import { RoleGuard } from './serviceauth/role.guard';
 export const routes: Routes = [
+ 
   {
-    path: 'dashboard',
-    redirectTo: 'dashboard',
-    pathMatch: 'full',
+    path: '',
+    component: LoginComponent,
+    canActivate:[BeforeLoginService],
+
+    data: {
+      title: 'Login Page'
+    }
   },
+  
+  {
+    path: 'login',
+    component: LoginComponent,
+    canActivate:[BeforeLoginService],
+
+    data: {
+      title: 'Login Page'
+    }
+  },
+  
+ 
+  // {
+  //   path: 'profile',
+  //   component: ProfileadminComponent,
+  //   canActivate:[AfterLoginService],
+  //   data: {
+  //     title: 'Login Page'
+  //   }
+  // },
+
+  {
+    path: 'logout/loginn',
+   component: LoginComponent,
+    canActivate:[AfterLoginService],
+
+    data: {
+      title: 'Logout Page'
+    }
+  },
+  {
+    path: '',
+    
+    redirectTo: 'dashboard',
+
+    pathMatch: 'full',
+  
+  },
+  
   {
     path: '404',
     component: P404Component,
@@ -31,95 +82,127 @@ export const routes: Routes = [
       title: 'Page 500'
     }
   },
-  {
-    path: '',
-    component: LoginComponent,
-    data: {
-      title: 'Login Page'
-    }
-  },
+ 
+  //test
+  // {
+  //   path: 'dashboard/login',
+  //   component: LoginComponent,
+  //   data: {
+  //     title: 'Logintest Page'
+  //   }
+  // },
+   //testtt
+   
+
   {
     path:'forgot-password',
     component: ForgotpassComponent,
+   canActivate:[BeforeLoginService],
+
     data: {
       title: 'Forgot Page'
     }
   },
-  {path: 'reset-password', component: ResetPasswordComponent},
+  {
+    path:'reset-password',
+     component: ResetPasswordComponent,
+    canActivate:[BeforeLoginService],  
+  data: {
+    title: 'Reset Page'
+  }
+},
 
   {
     path: 'register',
+    
     component: RegisterComponent,
+    canActivate:[AfterLoginService],
     data: {
       title: 'Register Page'
     }
   },
-  {
+  
+ 
+ {
     path: '',
     component: DefaultLayoutComponent,
+    canActivate:[AfterLoginService],
+
     data: {
       title: 'Home'
     },
     children: [
       {
-        path: 'base',
-        loadChildren: () => import('./views/base/base.module').then(m => m.BaseModule)
+        path: 'gestion',
+        loadChildren: () => import('./views/gestion/gestion.module').then(m => m.GestionModule)
       },
       {
-        path: 'buttons',
-        loadChildren: () => import('./views/buttons/buttons.module').then(m => m.ButtonsModule)
+        path: 'mission',
+        loadChildren: () => import('./views/mission/mission.module').then(m => m.MissionsModule)
       },
       {
-        path: 'charts',
-        loadChildren: () => import('./views/chartjs/chartjs.module').then(m => m.ChartJSModule)
+        path: 'logout',
+        loadChildren: () => import('./views/logout/logout.module').then(m => m.LogoutModule)
       },
+     
+  
+      {
+        path: 'profileAdmin',
+        loadChildren: () => import('./views/profileadmin/profileadmin.module').then(m => m.ProfileAdminModule)
+      },
+    
       {
         path: 'dashboard',
         loadChildren: () => import('./views/dashboard/dashboard.module').then(m => m.DashboardModule)
       },
+      
+     
       {
-        path: 'editors',
-        loadChildren: () => import('./views/editors/editors.module').then(m => m.EditorsModule)
-      },
-      {
-        path: 'forms',
-        loadChildren: () => import('./views/forms/forms.module').then(m => m.FormsModule)
-      },
-      {
-        path: 'google-maps',
+        path: 'live-cart',
         loadChildren: () => import('./views/google-maps/google-maps.module').then(m => m.GoogleMapsModule)
       },
       {
-        path: 'icons',
-        loadChildren: () => import('./views/icons/icons.module').then(m => m.IconsModule)
+        path: 'historiquecirc',
+        loadChildren: () => import('./views/historique-circulation/historique-circulation.module').then(m => m.HistoriqueCirculationModule)
+      },
+    
+      {
+        path: 'maintenance',
+        loadChildren: () => import('./views/maintenance/maintenance.module').then(m => m.MaintenanceModule)
       },
       {
         path: 'notifications',
         loadChildren: () => import('./views/notifications/notifications.module').then(m => m.NotificationsModule)
       },
-      {
-        path: 'plugins',
-        loadChildren: () => import('./views/plugins/plugins.module').then(m => m.PluginsModule)
-      },
-      {
-        path: 'tables',
-        loadChildren: () => import('./views/tables/tables.module').then(m => m.TablesModule)
-      },
-      {
-        path: 'theme',
-        loadChildren: () => import('./views/theme/theme.module').then(m => m.ThemeModule)
-      },
+      
+    
       {
         path: 'apps',
         loadChildren: () => import('./views/apps/apps.module').then(m => m.AppsModule)
       },
-      {
-        path: 'widgets',
-        loadChildren: () => import('./views/widgets/widgets.module').then(m => m.WidgetsModule)
-      }
+     
     ]
   },
-  { path: '**', component: P404Component }
+  {
+    path: '',
+    component: DefaultLayoutComponent,
+    canActivate:[AfterLoginChaufService],
+
+    data: {
+      title: 'Home'
+    },
+    children: [
+    {
+      path: 'chauffeur',
+      loadChildren: () => import('./views/chauffeurInterface/chauffeur.module').then(m => m.ChauffeurModule)
+    },
+    {
+      path: 'dashboardchauffeur',
+      loadChildren: () => import('./views/dashboard/dashboard.module').then(m => m.DashboardModule)
+    },
+    
+    ]
+  }
 ];
 
 @NgModule({

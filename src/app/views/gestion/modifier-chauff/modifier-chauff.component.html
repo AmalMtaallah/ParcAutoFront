@@ -1,0 +1,171 @@
+
+   
+   <form [formGroup]="editvehicule" (ngSubmit)="update()" class="needs-validation">
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header" style="background-color: rgb(12, 124, 124);">
+           
+            <strong style="color:white">Identification</strong> 
+        </div>
+          <div class="card-body">
+            
+              <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">Nom</label>
+                <div class="col-md-9">
+                  <input type="text" id="text-input" name="name" class="form-control" formControlName="name">
+                  <div *ngIf="editvehicule.controls['name'].invalid && (editvehicule.controls['name'].dirty || editvehicule.controls['name'].touched)" class="help-block" style="color:red" role="alert">
+                    <span class="help-block" *ngIf="editvehicule.controls['name'].errors.required">
+                        This field is required.
+                    </span>
+                </div>
+                </div>
+              </div>
+  
+             
+              <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="text-input">Prénom</label>
+                <div class="col-md-9">
+                  <input type="text" id="text-input" name="prenom" class="form-control" formControlName="prenom">
+                  <div *ngIf="editvehicule.controls['prenom'].invalid && (editvehicule.controls['prenom'].dirty || editvehicule.controls['prenom'].touched)" class="help-block" style="color:red" role="alert">
+                    <span class="help-block" *ngIf="editvehicule.controls['prenom'].errors.required">
+                        This field is required.
+                    </span>
+                </div>
+                </div>
+              </div>
+             
+             
+              <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="disabled-input">Cin</label>
+                <div class="col-md-9">
+                  <input type="text" id="disabled-input" name="cin" class="form-control" formControlName="cin">
+                  <div *ngIf="editvehicule.controls['cin'].invalid && (editvehicule.controls['cin'].dirty || editvehicule.controls['cin'].touched)" class="help-block" style="color:red" role="alert">
+                    <span class="help-block" *ngIf="editvehicule.controls['cin'].errors.required">
+                        This field is required.
+                    </span>
+                </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="email-input">Email</label>
+                <div class="col-md-9">
+                  <input type="email" id="email-input" name="email" class="form-control" formControlName="email" autocomplete="email">  
+                 
+                <div *ngIf="editvehicule.controls['email'].invalid && (editvehicule.controls['email'].dirty || editvehicule.controls['email'].touched)" class="help-block" style="color:red" role="alert">
+                  <span class="help-block" *ngIf="editvehicule.controls['email'].errors.required">
+                      This field is required.
+                  </span>
+              </div>          
+               </div> 
+              </div>
+            
+              <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="file-input">Image</label>
+                <div class="col-md-9">
+                 <input class="form-control" id="lastName" type="file" (change)="onSelectFile($event)" name="image" >             
+                 <div *ngIf="editvehicule.controls['image'].invalid && (editvehicule.controls['image'].dirty || editvehicule.controls['image'].touched)" class="help-block" style="color:red" role="alert">
+                  <span class="help-block" *ngIf="editvehicule.controls['image'].errors.required">
+                      This field is required.
+                  </span>
+              </div>
+                </div>
+              </div>
+                <div class="form-group row">
+                  <label class="col-md-3 col-form-label" for="email-input">Tel</label>
+                  <div class="col-md-9">
+                    <input type="text" id="email-input" name="tel" class="form-control" formControlName="tel" autocomplete="tel">
+                     
+                  
+                  <div *ngIf="editvehicule.controls['tel'].invalid && (editvehicule.controls['tel'].dirty || editvehicule.controls['tel'].touched)" class="help-block" style="color:red" role="alert">
+                    <span class="help-block" *ngIf="editvehicule.controls['tel'].errors.required">
+                        This field is required.
+                    </span>
+                </div>       
+                  </div>
+                </div> 
+
+
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="text-input">Adresse</label>
+                    <div class="col-md-9">
+                      <input type="text" id="text-input" name="adress" class="form-control" formControlName="adress">
+                      <div *ngIf="editvehicule.controls['adress'].invalid && (editvehicule.controls['adress'].dirty || editvehicule.controls['adress'].touched)" class="help-block" style="color:red" role="alert">
+                        <span class="help-block" *ngIf="editvehicule.controls['adress'].errors.required">
+                            This field is required.
+                        </span>
+                    </div> 
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="text-input">Date Naissance</label>
+                    <div class="col-md-9">
+                      <input class="form-control" id="date-input" formControlName="datenaiss" name="datenaiss"  required placeholder="date" type="date">              </div>
+                      <div *ngIf="editvehicule.controls['datenaiss'].invalid && (editvehicule.controls['datenaiss'].dirty || editvehicule.controls['datenaiss'].touched)" class="help-block" style="color:red;font-weight:bold" role="alert">
+                        <span class="help-block" *ngIf="editvehicule.controls['datenaiss'].errors.required">
+                            Champ Obligatoire !!!.
+                        </span>
+                    </div>          </div>
+                
+  
+             
+              
+          </div>
+          
+        </div>
+       
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header" style="background-color: rgb(12, 124, 124);">
+            <strong style="color:white;font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">Information Permis</strong> 
+          </div>
+          <div class="card-body">
+            <fieldset class="form-group">
+              <label for="text-input" class=" form-control-label">Numéro de Permis</label>             
+               <div class="input-group">
+              <span class="input-group-prepend"><span class="input-group-text"><i  class=" fa fa-neuter"></i></span></span>
+              <input class="form-control" id="date-input" formControlName="numpermis" name="numpermis"  required placeholder="Num_Permis" type="text">              </div>
+  
+          </fieldset>
+          <fieldset class="form-group">
+            <label for="text-input" class=" form-control-label">Date Sortie Permis</label>             
+             <div class="input-group">
+            <span class="input-group-prepend"><span class="input-group-text"><i  class=" fa fa-calendar"></i></span></span>
+            <input class="form-control" id="date-input" formControlName="datesortie" name="datesortie"  required placeholder="date" type="date">              </div>
+  
+        </fieldset>
+        <fieldset class="form-group">
+          <label for="text-input" class=" form-control-label">Date fin delai </label>             
+           <div class="input-group">
+          <span class="input-group-prepend"><span class="input-group-text"><i  class=" fa fa-calendar"></i></span></span>
+          <!-- <strong *ngIf="errors.datefin"> test  </strong> -->
+       <input class="form-control" id="date-input" formControlName="datefin" name="datefin"   required placeholder="date" type="date">  
+                     </div> 
+          <div *ngIf="editvehicule.controls['datefin'].invalid && (editvehicule.controls['datefin'].dirty || editvehicule.controls['datefin'].touched)" class="help-block" style="color:red;font-weight:bold" role="alert">
+            <span class="help-block" *ngIf="editvehicule.controls['datefin'].errors.required">
+                Champ Obligatoire !!!.
+            </span>
+        </div>
+      </fieldset>
+        <div class="card-footer" style="background-color: white;">
+         <div class="row">
+          <span *ngIf="usedEmail==true" style="color:red;font-weight:bold">{{usedmailmessage}}</span>
+  
+         </div>
+        <div class="row">
+          <button class="btn btn-primary mr-1" type="submit" [disabled]="editvehicule.invalid" >Modifier Chauffeur</button>
+  
+        </div>
+        </div>
+      </div>
+        
+        
+        
+      </div><!--/.col-->
+    </div><!--/.row-->
+    
+  </div>
+   </form>

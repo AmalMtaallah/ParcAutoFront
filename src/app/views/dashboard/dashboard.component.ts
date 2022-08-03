@@ -1,389 +1,418 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { getStyle, hexToRgba } from '@coreui/coreui-pro/dist/js/coreui-utilities';
 import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
+import { AuthetificationService } from '../../serviceauth/authetification.service';
+import { CommonModule } from '@angular/common';
+import { DashchaufService } from './dashchauf.service';
+import { ModalDirective } from 'ngx-bootstrap/modal';
+import { MissionsService } from '../mission/MissionService.service';
+import { Router } from '@angular/router';
+import * as turf from '@turf/turf'
+import { CalendarOptions } from '@fullcalendar/angular'
+import dayGridPlugin from '@fullcalendar/daygrid';
+import * as mapboxgl from 'mapbox-gl';
 
 @Component({
   templateUrl: 'dashboard.component.html'
 })
 export class DashboardComponent implements OnInit {
+  @ViewChild('myModal') public myModal: ModalDirective;
+afficherajourdhui:boolean
+msgonload:boolean
+affichercetsemaine:boolean
+afficherprochainesemaine:boolean
+afficherdeuxsemaines:boolean
+  user:any
+  missions: any;
+  userr: any;
+  dateactuelle: any;
+  missionaujourdui: any="";
+  periodee: any="";
+  missiondatechoisi: any;
+  nbr:any=""
+  nb:any="";
+  nbvehicules:any=""
+  nbvehienlivraison:any=""
+  fivelatestusers:any=""
+  imagedirectory :any ='http://127.0.0.1:8000/public/image/';
+  nbtotal:any=""
+  nbmissionparadress:any=""
+  essai=45+"%"
+  totaladress:any=""
+  nbmiss: any="";
+  mois:any[]= ['janvier', 'ferier', 'mars', 'avril', 'mai', 'juin', 'juillet','aout','september','october','november','december'];
+  missionTerminer: any="";
+  missionscetsemaine: any="";
+  missionsemainceprochaine: any="";
+  missionsdeuxsemaines: any="";
+  coordoné: any="";
+  alt: any="";
+  long:any=""
+  distance: number;
+  distancefinale: string;
+  terminatedmiss:any=""
+  afficherbutton:boolean=true
+  calendarOptions: CalendarOptions;
+  map:any;
+  Events :any= [];
+  constructor(private auth:AuthetificationService,private router:Router,private dashserv:DashchaufService,private missionSer:MissionsService) {}
+  ngOnInit(): void {
+    this.afficherajourdhui=false
+    this.affichercetsemaine=false
+    this.afficherprochainesemaine=false
+    this.afficherdeuxsemaines=false
+    this.msgonload=true
+    this.valider()
+    this.missionstermine()
+    this.totaledestination()
+    this.get5latestusers()
+    this.gettotal()
+    this.getnbpardest()
+    this.nbvehienlivraisons()
+    this.getdate()
+    this.nbchauf()
+    this.nbvehicule()
+    this.calender()
+    this.getnbmissionsparmois()
 
-  radioModel: string = 'Month';
+    this.auth.user().subscribe((res)=>{
+      this.user = res;
+    }, (err) =>{
+      console.log(err);
+    })
+    const u :any =localStorage.getItem('user') ;
+    this.userr =JSON.parse(u);  
+   
+    setTimeout(() => {
+      this.calendarOptions = {
+        //plugins: [ dayGridPlugin ],  
+        initialView: 'dayGridMonth',
+        eventClick:this.eventClick.bind(this),
+        headerToolbar: {
+          left: 'prev,next',
+          center: 'title',
+          right: 'dayGridDay,dayGridWeek,dayGridMonth'
+        },    
+        events: this.Events,
+       
+      };
+    }, 40); 
+    
+    // generate random values for mainChart
+    
+  }
+  // AllMission(){
+  //   const userr :any =JSON.parse(localStorage.getItem('user')) ;
 
-  // lineChart1
-  public lineChart1Data: Array<any> = [
-    {
-      data: [65, 59, 84, 84, 51, 55, 40],
-      label: 'Series A'
+  //   this.dashserv.getmissions(userr.id).subscribe( res=>{
+  //     console.log(res);
+  //     this.missions=res;
+  //   });
+  // }
+  
+  eventClick(info) {
+    //alert('Event: ' + info.event.title);
+   // alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
+   // alert('View: ' + info.view.type);
+  
+    // change the border color just for fun
+  
+    info.el.style.borderColor = 'red';
+    //console.log(info.event.id)
+    this.router.navigate(['chauffeur/mission/'+info.event.id])
+    
+  }
+  calender(){
+    const u :any =JSON.parse(localStorage.getItem('user')) ;
+      setTimeout(() => {
+        this.dashserv.calenderMission(u.id).subscribe(res => {
+            this.Events=JSON.parse(JSON.stringify(res));
+            //ghalta this.Events = JSON.stringify(res);
+            //this.Events=res;
+              console.log(this.Events);
+          });
+      },30);
+  
     }
-  ];
-  public lineChart1Labels: Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-  public lineChart1Options: any = {
-    tooltips: {
-      enabled: false,
-      custom: CustomTooltips
-    },
-    maintainAspectRatio: false,
-    scales: {
-      xAxes: [{
-        gridLines: {
-          color: 'transparent',
-          zeroLineColor: 'transparent'
-        },
-        ticks: {
-          fontSize: 2,
-          fontColor: 'transparent',
-        }
+    MarquerPresence(){
+      (mapboxgl as any).accessToken = 'pk.eyJ1IjoibXRhYWxsYWhhbWFsIiwiYSI6ImNsMGduMXE2YTAwYW4zam1vcHNlZGtvczQifQ.OS5VT9dgW-jpYgLmqoTR2A';
+      this.map= new mapboxgl.Map({
+        container: 'geofence', // Specify the container ID
+        style: 'mapbox://styles/mapbox/streets-v11', // Specify which map style to use
+        center: [10.163140922614268,36.864756339378715], // Specify the starting position
+        zoom: 7, // Specify the starting zoom
+      });
+      const marker1 = new mapboxgl.Marker()
+      .setLngLat([10.163140922614268,36.864756339378715])
+      .addTo(this.map);
+      var geolocate = new mapboxgl.GeolocateControl();
+  
+      this.map.addControl(geolocate);
+      geolocate.on('geolocate', async function(e) {
+            var lon = e.coords.longitude;
+            var lat = e.coords.latitude
+            var position = [lon, lat];
+            console.log(position);
+            console.log(this.from)
+           
+            var distance = turf.distance([10.210501,36.869894], position, { units: 'kilometers' });
+            if(distance < 0.01 ){
+              this.afficherbutton=false
+              console.log(this.afficherbutton)
+            }
+            else {
+              console.log(this.afficherbutton)
+              this.afficherbutton=true
 
-      }],
-      yAxes: [{
-        display: false,
-        ticks: {
-          display: false,
-          min: 40 - 5,
-          max: 84 + 5,
-        }
-      }],
-    },
-    elements: {
-      line: {
-        borderWidth: 1
-      },
-      point: {
-        radius: 4,
-        hitRadius: 10,
-        hoverRadius: 4,
-      },
-    },
-    legend: {
-      display: false
+            }
+      });
+     
     }
-  };
-  public lineChart1Colours: Array<any> = [
-    {
-      backgroundColor: getStyle('--primary'),
-      borderColor: 'rgba(255,255,255,.55)'
+    valider(){
+      this.afficherbutton
+      console.log(this.afficherbutton)
     }
-  ];
-  public lineChart1Legend = false;
-  public lineChart1Type = 'line';
+  
+  public Present(){
+    const u :any =JSON.parse(localStorage.getItem('user')) ;
+    this.dashserv.ajouterpresencechauf(u.id).subscribe(res=>{
+      console.log(res)
+    })
+  }
+ 
+  public missionstermine(){
 
-  // lineChart2
-  public lineChart2Data: Array<any> = [
-    {
-      data: [1, 18, 9, 17, 34, 22, 11],
-      label: 'Series A'
-    }
-  ];
-  public lineChart2Labels: Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-  public lineChart2Options: any = {
-    tooltips: {
-      enabled: false,
-      custom: CustomTooltips
-    },
-    maintainAspectRatio: false,
-    scales: {
-      xAxes: [{
-        gridLines: {
-          color: 'transparent',
-          zeroLineColor: 'transparent'
-        },
-        ticks: {
-          fontSize: 2,
-          fontColor: 'transparent',
-        }
-
-      }],
-      yAxes: [{
-        display: false,
-        ticks: {
-          display: false,
-          min: 1 - 5,
-          max: 34 + 5,
-        }
-      }],
-    },
-    elements: {
-      line: {
-        tension: 0.00001,
-        borderWidth: 1
-      },
-      point: {
-        radius: 4,
-        hitRadius: 10,
-        hoverRadius: 4,
-      },
-    },
-    legend: {
-      display: false
-    }
-  };
-  public lineChart2Colours: Array<any> = [
-    { // grey
-      backgroundColor: getStyle('--info'),
-      borderColor: 'rgba(255,255,255,.55)'
-    }
-  ];
-  public lineChart2Legend = false;
-  public lineChart2Type = 'line';
-
-
-  // lineChart3
-  public lineChart3Data: Array<any> = [
-    {
-      data: [78, 81, 80, 45, 34, 12, 40],
-      label: 'Series A'
-    }
-  ];
-  public lineChart3Labels: Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-  public lineChart3Options: any = {
-    tooltips: {
-      enabled: false,
-      custom: CustomTooltips
-    },
-    maintainAspectRatio: false,
-    scales: {
-      xAxes: [{
-        display: false
-      }],
-      yAxes: [{
-        display: false
-      }]
-    },
-    elements: {
-      line: {
-        borderWidth: 2
-      },
-      point: {
-        radius: 0,
-        hitRadius: 10,
-        hoverRadius: 4,
-      },
-    },
-    legend: {
-      display: false
-    }
-  };
-  public lineChart3Colours: Array<any> = [
-    {
-      backgroundColor: 'rgba(255,255,255,.2)',
-      borderColor: 'rgba(255,255,255,.55)',
-    }
-  ];
-  public lineChart3Legend = false;
-  public lineChart3Type = 'line';
-
-
-  // barChart1
-  public barChart1Data: Array<any> = [
-    {
-      data: [78, 81, 80, 45, 34, 12, 40, 78, 81, 80, 45, 34, 12, 40, 12, 40],
-      label: 'Series A'
-    }
-  ];
-  public barChart1Labels: Array<any> = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16'];
-  public barChart1Options: any = {
-    tooltips: {
-      enabled: false,
-      custom: CustomTooltips
-    },
-    maintainAspectRatio: false,
-    scales: {
-      xAxes: [{
-        display: false,
-        barPercentage: 0.6,
-      }],
-      yAxes: [{
-        display: false
-      }]
-    },
-    legend: {
-      display: false
-    }
-  };
-  public barChart1Colours: Array<any> = [
-    {
-      backgroundColor: 'rgba(255,255,255,.3)',
-      borderWidth: 0
-    }
-  ];
-  public barChart1Legend = false;
-  public barChart1Type = 'bar';
-
-  // mainChart
-
-  public mainChartElements = 27;
-  public mainChartData1: Array<number> = [];
-  public mainChartData2: Array<number> = [];
-  public mainChartData3: Array<number> = [];
-
-  public mainChartData: Array<any> = [
-    {
-      data: this.mainChartData1,
-      label: 'Current'
-    },
-    {
-      data: this.mainChartData2,
-      label: 'Previous'
-    },
-    {
-      data: this.mainChartData3,
-      label: 'BEP'
-    }
-  ];
-  /* tslint:disable:max-line-length */
-  public mainChartLabels: Array<any> = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday', 'Monday', 'Thursday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-  /* tslint:enable:max-line-length */
-  public mainChartOptions: any = {
-    tooltips: {
-      enabled: false,
-      custom: CustomTooltips,
-      intersect: true,
-      mode: 'index',
-      position: 'nearest',
-      callbacks: {
-        labelColor: function(tooltipItem, chart) {
-          return { backgroundColor: chart.data.datasets[tooltipItem.datasetIndex].borderColor };
-        }
-      }
-    },
-    responsive: true,
-    responsiveAnimationDuration: 0,
-    maintainAspectRatio: false,
-    scales: {
-      xAxes: [{
-        gridLines: {
-          drawOnChartArea: false,
-        },
-        ticks: {
-          callback: function(value: any) {
-            return value.charAt(0);
-          }
-        }
-      }],
-      yAxes: [{
-        ticks: {
-          beginAtZero: true,
-          maxTicksLimit: 5,
-          stepSize: Math.ceil(250 / 5),
-          max: 250
-        }
-      }]
-    },
-    elements: {
-      line: {
-        borderWidth: 2
-      },
-      point: {
-        radius: 0,
-        hitRadius: 10,
-        hoverRadius: 4,
-        hoverBorderWidth: 3,
-      }
-    },
-    legend: {
-      display: false
-    }
-  };
-  public mainChartColours: Array<any> = [
-    { // brandInfo
-      backgroundColor: hexToRgba(getStyle('--info'), 10),
-      borderColor: getStyle('--info'),
-      pointHoverBackgroundColor: '#fff'
-    },
-    { // brandSuccess
-      backgroundColor: 'transparent',
-      borderColor: getStyle('--success'),
-      pointHoverBackgroundColor: '#fff'
-    },
-    { // brandDanger
-      backgroundColor: 'transparent',
-      borderColor: getStyle('--danger'),
-      pointHoverBackgroundColor: '#fff',
-      borderWidth: 1,
-      borderDash: [8, 5]
-    }
-  ];
-  public mainChartLegend = false;
-  public mainChartType = 'line';
-
-  // social box charts
-
-  public brandBoxChartData1: Array<any> = [
-    {
-      data: [65, 59, 84, 84, 51, 55, 40],
-      label: 'Facebook'
-    }
-  ];
-  public brandBoxChartData2: Array<any> = [
-    {
-      data: [1, 13, 9, 17, 34, 41, 38],
-      label: 'Twitter'
-    }
-  ];
-  public brandBoxChartData3: Array<any> = [
-    {
-      data: [78, 81, 80, 45, 34, 12, 40],
-      label: 'LinkedIn'
-    }
-  ];
-  public brandBoxChartData4: Array<any> = [
-    {
-      data: [35, 23, 56, 22, 97, 23, 64],
-      label: 'Google+'
-    }
-  ];
-
-  public brandBoxChartLabels: Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-  public brandBoxChartOptions: any = {
-    tooltips: {
-      enabled: false,
-      custom: CustomTooltips
-    },
-    responsive: true,
-    maintainAspectRatio: false,
-    scales: {
-      xAxes: [{
-        display: false,
-      }],
-      yAxes: [{
-        display: false,
-      }]
-    },
-    elements: {
-      line: {
-        borderWidth: 2
-      },
-      point: {
-        radius: 0,
-        hitRadius: 10,
-        hoverRadius: 4,
-        hoverBorderWidth: 3,
-      }
-    },
-    legend: {
-      display: false
-    }
-  };
-  public brandBoxChartColours: Array<any> = [
-    {
-      backgroundColor: 'rgba(255,255,255,.1)',
-      borderColor: 'rgba(255,255,255,.55)',
-      pointHoverBackgroundColor: '#fff'
-    }
-  ];
-  public brandBoxChartLegend = false;
-  public brandBoxChartType = 'line';
+    this.dashserv.allterminatedmiss().subscribe(res=>{
+      this.terminatedmiss=res
+    })
+  }
 
   public random(min: number, max: number) {
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
 
-  ngOnInit(): void {
-    // generate random values for mainChart
-    for (let i = 0; i <= this.mainChartElements; i++) {
-      this.mainChartData1.push(this.random(50, 200));
-      this.mainChartData2.push(this.random(80, 100));
-      this.mainChartData3.push(65);
+  public getdate(){
+    this.dashserv.getdatenow().subscribe( res=>{
+      this.dateactuelle=res;
+    });
+  }
+   
+public lancer(id:any){
+  this.dashserv.lancer(id).subscribe( res=>{
+  });
+}
+public nbvehicule(){
+this.dashserv.nbvehicules().subscribe(res=>{
+  this.nbvehicules=res
+})
+}
+public nbchauf(){
+  this.dashserv.nbchauffeur().subscribe( res=>{
+    this.nb=res
+  });
+}
+
+public nbvehienlivraisons(){
+  this.dashserv.nbvehienlivraison().subscribe(res=>{
+this.nbvehienlivraison=res
+  })
+}
+public get5latestusers(){
+  this.dashserv.getchaufeurpermis().subscribe(res=>{
+    this.fivelatestusers=res
+    console.log(this.fivelatestusers)
+  })
+}
+
+public gettotal(){
+  this.dashserv.totalmission().subscribe(res=>{
+    this.nbtotal=res
+    console.log(res)
+  })
+}
+
+public getnbpardest(){
+  this.dashserv.nbmissionparadress().subscribe(res=>{
+    this.nbmissionparadress=res
+    for(let i=0;i<this.nbmissionparadress.length;i++){
+   this.pieChartLabels.push(this.nbmissionparadress[i].adress)
+   this.pieChartData.push(this.nbmissionparadress[i].total)
     }
+  })
+}
+
+ public totaledestination(){
+   this.dashserv.totaldestination().subscribe(res=>{
+     this.totaladress=res
+   })
+  }
+
+  public getnbmissionsparmois(){
+    this.dashserv.nbmissionparmois().subscribe(res=>{
+      this.nbmiss=res
+      for(let i=0;i<this.nbmiss.length;i++){
+       this.barChartData[0].data.push(this.nbmiss[i].total)
+       this.barChartLabels.push(this.mois[this.nbmiss[i].month-1])
+
+
+      }
+      console.log(this.barChartData[0].data)
+
+    })
+   
+  }
+
+
+public pieChartLabels: string[] = [];
+ public pieChartData: number[] = [];
+ public pieChartType = 'pie';
+
+ // barChart
+  public barChartOptions: any = {
+    scaleShowVerticalLines: false,
+    responsive: true,
+    scales: {
+
+      xAxes: [{
+        ticks: {
+          beginAtZero: true
+        }
+      }], yAxes: [{
+        ticks: {
+          beginAtZero: true
+        }
+      }]
+    },
+  };
+  public barChartLabels: string[] = [];
+  public barChartType = 'bar';
+  public barChartLegend = true;
+
+  public barChartData: any[] = [
+    {data: [], label: 'Nombre missions'},
+    //{data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B'}
+  ];
+  public chartClicked(e: any): void {
+    console.log(e);
+  }
+
+  public chartHovered(e: any): void {
+    console.log(e);
+  }
+
+  public terminer(id:any){
+    //var to = [36.4552896279554, 10.721520788950974] //lng, lat
+    var from = [36.864756339378715,10.163140922614268]
+   
+    //console.log(distance)
+  
+    this.missionSer.getMissionByID(id).subscribe(res=>{
+      console.log(res);
+      this.missionTerminer=res;
+      const id=this.missionTerminer.id;
+      console.log(id);
+      const destination=this.missionTerminer.adress
+      console.log(destination)
+      this.missionSer.addressLookup2(destination).subscribe(res=>{
+         this.coordoné=res
+    console.log(this.coordoné)
+     const alt=this.coordoné.features[0].geometry.coordinates[0]
+     const long=this.coordoné.features[0].geometry.coordinates[1]
+     console.log(long)
+     console.log(alt)
+    this.distance = turf.distance([long,alt],from);
+        this.distancefinale=this.distance.toFixed(2)
+     console.log(this.distancefinale)
+      })
+     
+    
+      const formData=new FormData();
+      this.missionSer.setTerminatedMission(this.distancefinale,id,formData).subscribe(res=>{
+        console.log(res);
+      })
+     
+      this.VidangeNotif(this.missionTerminer.vehicule_id);
+      this.notifChangementPneux(this.missionTerminer.vehicule_id);
+    
+  });
+  }
+  
+VidangeNotif(ids:any){
+  this.missionSer.vidangeNotif(ids).subscribe(res=>{
+    console.log(res);
+    
+  })
+}
+notifChangementPneux(ids:any){
+  this.missionSer.notifChangementPneux(ids).subscribe(res=>{
+    console.log(res);
+    
+  })
+}
+
+
+onChangeFood($event) {
+  const id = $event.target.value;
+  const isChecked = $event.target.checked;
+  if(isChecked==true){
+  this.afficherajourdhui=true
+  this.afficherdeuxsemaines=false
+  this.affichercetsemaine=false
+  this.afficherprochainesemaine=false
+  this.msgonload=false
+  }
+
+
+
+}
+onChangeFood2($event) {
+  const id = $event.target.value;
+  const isChecked = $event.target.checked;
+  if(isChecked==true){
+  this.affichercetsemaine=true
+  this.afficherajourdhui=false
+  this.afficherdeuxsemaines=false
+  this.afficherprochainesemaine=false
+  this.msgonload=false
+
+  }
+
+
+}
+onChangeFood3($event) {
+  const id = $event.target.value;
+  const isChecked = $event.target.checked;
+  if(isChecked==true){
+  this.afficherprochainesemaine=true
+  this.afficherajourdhui=false
+  this.affichercetsemaine=false
+  this.afficherdeuxsemaines=false
+  this.msgonload=false
+
   }
 }
+
+onChangeFood4($event) {
+  const id = $event.target.value;
+  const isChecked = $event.target.checked;
+  if(isChecked==true){
+  this.afficherdeuxsemaines=true
+  this.afficherajourdhui=false
+  this.affichercetsemaine=false
+  this.afficherprochainesemaine=false
+  this.msgonload=false
+
+  }
+
+
+}
+
+
+
+
+detailmission(id:any){
+  this.router.navigate(['chauffeur/mission/'+id])
+}
+
+}
+

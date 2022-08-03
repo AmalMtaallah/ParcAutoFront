@@ -1,0 +1,167 @@
+
+      <form [formGroup]="editvehicule" (ngSubmit)="update()">
+<div class="animated fadeIn">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card" [hidden]="f1">
+            <div class="card-header" style="background-color: rgb(12, 124, 124);">
+                <strong style="color:white">Update Information Complémentaires</strong> 
+            </div>
+          <div class="card-body">
+            <fieldset class="form-group">
+                <label for="text-input" class=" form-control-label">Marque</label>             
+                 <div class="input-group">
+                <span class="input-group-prepend"><span class="input-group-text"><i class=" fa fa-xing"></i></span></span>
+                <input type="text" id="text-input" formControlName="marque"  class="form-control" name="marque">
+              </div>
+            </fieldset>
+            <!-- <div class="row">
+              <div *ngIf="myForm.controls['marque'].invalid && (myForm.controls['marque'].dirty || myForm.controls['marque'].touched)" class="alert alert-danger" role="alert">
+                <div class="col-13"*ngIf="myForm.controls['marque'].errors.required">
+                    This field is required.
+              </div>
+            </div>
+             </div> -->
+            <fieldset class="form-group">
+                <label for="text-input" class=" form-control-label">Modéle</label>              
+                <div class="input-group">
+                <span class="input-group-prepend"><span class="input-group-text"><i class="fa fa-adn"></i></span></span>
+                <input type="text" id="text-input" formControlName="modele"  class="form-control" name="modele">
+              </div>
+        </fieldset>
+        <!-- <div class="row">
+          <div *ngIf="myForm.controls['modele'].invalid && (myForm.controls['modele'].dirty || myForm.controls['modele'].touched)" class="alert alert-danger" role="alert">
+            <div class="col-13"*ngIf="myForm.controls['modele'].errors.required">
+                This field is required.
+          </div>
+        </div>
+         </div> -->
+            <fieldset class="form-group">
+                <label for="text-input" class=" form-control-label">Couleur extérieure </label>              
+                <div class="input-group">
+                <span class="input-group-prepend"><span class="input-group-text"><i class="fa fa-yelp"></i></span></span>
+                <input type="text" id="text-input" formControlName="couleur"  class="form-control" name="couleur">  </div>
+            </fieldset>
+            <!-- <div class="row">
+              <div *ngIf="myForm.controls['couleur'].invalid && (myForm.controls['couleur'].dirty || myForm.controls['couleur'].touched)" class="alert alert-danger" role="alert">
+                <div class="col-13"*ngIf="myForm.controls['couleur'].errors.required">
+                    This field is required.
+              </div>
+            </div>
+             </div> -->
+            
+            <!-- <div class="row">
+              <div *ngIf="myForm.controls['nbr'].invalid && (myForm.controls['nbr'].dirty || myForm.controls['nbr'].touched)" class="alert alert-danger" role="alert">
+                <div class="col-13"*ngIf="myForm.controls['nbr'].errors.required">
+                    This field is required.
+              </div>
+            </div>
+             </div> -->
+             
+            <!-- <div class="row">
+              <div *ngIf="myForm.controls['boite'].invalid && (myForm.controls['boite'].dirty || myForm.controls['boite'].touched)" class="alert alert-danger" role="alert">
+                <div class="col-13"*ngIf="myForm.controls['boite'].errors.required">
+                    This field is required.
+              </div>
+            </div>
+             </div> -->
+            <fieldset class="form-group">
+                <label for="text-input" class=" form-control-label">Puissance (ch) </label>             
+                 <div class="input-group">
+                <span class="input-group-prepend"><span class="input-group-text"><i class="fa fa-bolt"></i></span></span>
+                <input type="text" id="text-input" formControlName="puissance" class="form-control" name="puissance"></div>              
+            </fieldset>
+            <!-- <div class="row">
+              <div *ngIf="myForm.controls['puissance'].invalid && (myForm.controls['puissance'].dirty || myForm.controls['puissance'].touched)" class="alert alert-danger" role="alert">
+                <div class="col-13"*ngIf="myForm.controls['puissance'].errors.required">
+                    This field is required.
+              </div>
+            </div>
+             </div> -->
+            <button type="button" class="btn btn-primary btn-sm" (click)="formulaire2()">
+                <i class="fa fa-arrow-right" ></i> Next
+            </button>
+          </div>
+        </div>
+      </div>
+    <div class="col-md-6">
+        <div class="card" [hidden]="f2">
+            <div class="card-header" style="background-color: rgb(12, 124, 124);">
+                <strong style="color:white">Update Iformation Générales</strong> 
+            </div>
+          <div class="card-body">
+            <fieldset class="form-group">
+                <label for="text-input" class=" form-control-label">Immatriculation</label>             
+                 <div class="input-group">
+                <span class="input-group-prepend"><span class="input-group-text"><i class="fa fa-calculator"></i></span></span>
+                <input type="text" id="text-input" formControlName="matricule"  class="form-control" name="matricule">
+              </div>
+            </fieldset>
+            <!-- <div class="row">
+              <div *ngIf="myForm.controls['matricule'].invalid && (myForm.controls['matricule'].dirty || myForm.controls['matricule'].touched)" class="alert alert-danger" role="alert">
+                <div class="col"*ngIf="myForm.controls['matricule'].errors.required">
+                    This field is required.
+              </div>
+            </div>
+             </div> -->
+            <fieldset class="form-group">
+                <label for="text-input" class=" form-control-label">Date de la premiére mise en circulation</label>             
+                 <div class="input-group">
+                <span class="input-group-prepend"><span class="input-group-text"><i  class=" fa fa-calendar"></i></span></span>
+                <input class="form-control" id="date-input" formControlName="datepremiere" name="datepremiere"  required placeholder="date" type="date">              </div>
+
+            </fieldset>
+            <fieldset class="form-group">
+                <label for="text-input" class=" form-control-label">Date d'entré dans le parc </label>             
+                 <div class="input-group">
+                <span class="input-group-prepend"><span class="input-group-text"><i class="fa fa-calendar"></i></span></span>
+                <input class="form-control" id="date-input" formControlName="dateentre" name="dateentre"  required placeholder="date" type="date">              
+
+            </div>
+             
+            </fieldset>
+            
+            <button type="submit" class="btn btn-primary btn-sm">
+              <i class="fa fa-dot-circle-o"></i> Submit
+          </button>
+          </div>
+        <!-- </div>
+        <div class="card" [hidden]="f3">
+            <div class="card-header" style="background-color: rgb(12, 124, 124);">
+                <strong style="color:white">Conducteur</strong> 
+            </div> -->
+          <!-- <div class="card-body">
+            <div class="row">
+                <div class="col-xs-12 col-12 col-md-6 form-group">
+
+                <div class="col col-md-3">  <label for="text-input" class=" form-control-label">Conducteur</label></div>
+                 <select  class="form-group"   class="form-control" (change)="onChangeChauff($event)"  formControlName="conducteur" name="conducteur" required>
+                  <option value="dali" >dali</option>
+
+                </select>
+                </div>
+            </div> -->
+            <!-- <div class="row">
+              <div *ngIf="myForm.controls['conducteur'].invalid && (myForm.controls['conducteur'].dirty || myForm.controls['conducteur'].touched)" class="alert alert-danger" role="alert">
+                <div class="col-13"*ngIf="myForm.controls['conducteur'].errors.required">
+                    This field is required.
+              </div>
+            </div>
+             </div> -->
+             <!-- <fieldset class="form-group">
+              <label for="text-input" class=" form-control-label">Conducteur</label>             
+               <div class="input-group">
+              <span class="input-group-prepend"><span class="input-group-text"><i class="fa fa-calculator"></i></span></span>
+              <input type="text" id="text-input" formControlName="conducteur" value="dali" class="form-control" name="conducteur">
+            </div>
+          </fieldset> -->
+            
+            
+        
+          </div>
+        </div>
+        
+      </div><!-- /.col -->
+    </div><!-- /.row -->
+    </form>
+

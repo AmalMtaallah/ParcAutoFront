@@ -1,0 +1,360 @@
+<script src='https://unpkg.com/@turf/turf/turf.min.js'></script>
+<script src='https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.css' rel='stylesheet' />
+<div class="col-lg-12">
+    <div class="card">
+    <div class="card-header" style="background-color: rgb(12, 124, 124);">
+      <div class="row">
+        <div class="col-md-6">
+          <h3 style="color:white;font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">Livraisons en attente</h3>
+
+        </div>
+       <div class="col-md-6" style="text-align:right">
+
+      
+        <button type="button" routerLink="/mission/addmission" class="btn btn-light" style="text-align: right;"><i class="fa fa-plus"></i> Planifier Livraisons</button>
+        <button type="button" class="btn btn-light" (click)="downloadpdf()"><i class="cui-cloud-download icons" style="text-align: right;"></i> Download PDF</button>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-6">
+          
+           <input type="text" class="form-control col-md-6" (ngModelChange)="recherchemissionbyparametre(keyy.value)" #keyy="ngModel" ngModel name="keyy" placeholder="Search"/> 
+
+      </div>
+      <div class="col-md-6">
+      <input class="form-control col-md-6" style="float: right;" id="date-input" width="50px"  name="key"  #key="ngModel" ngModel  required placeholder="Séléctioner une date" type="date" (blur)="getmessionbyperiode(key.value)">
+        
+    </div>
+  </div>
+  <br>
+  
+       
+       
+
+        <div class="d-flex align-items-center justify-content-center">
+          <span style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif  ;font-weight: bold;" > Aujourd'hui le :{{dateactuelle}}</span>
+         
+      </div>
+      <br>
+     
+     
+         <div class="row">
+          <div class="col-md-3">
+
+          <div class="form-check">
+              <input
+                mdbCheckbox
+                class="form-check-input"
+                type="checkbox"
+                id="flexCheckDefault"
+                [value]="-1"
+                [(ngModel)]="afficherajourdhui"
+                (change)="onChangeFood($event)"
+                />
+              <label class="form-check-label" for="flexCheckDefault">
+                Aujourd'hui
+              </label>
+            </div>
+          </div>
+          
+          <div class="col-md-3">
+            <div class="form-check">
+              <input
+                mdbCheckbox
+                type="checkbox"
+                class="form-check-input"
+                [(ngModel)]="affichercetsemaine"
+                (change)="onChangeFood2($event)"
+                [value]="-1"
+                id="flexCheckDefault"
+              />
+              <label class="form-check-label" for="flexCheckDefault">
+                   toute la semaine
+              </label>
+            </div>
+          </div>
+          <div class="col-md-3">
+              <div class="form-check">
+                <input
+                  mdbCheckbox
+                  [(ngModel)]="afficherprochainesemaine"
+                  class="form-check-input"
+                  type="checkbox"
+                  [value]="-1"
+                  id="flexCheckDefault"
+                  (change)="onChangeFood3($event)"
+                />
+                <label class="form-check-label" for="flexCheckDefault">
+                    semaine prochaine
+                </label>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-check">
+                <input
+                  mdbCheckbox
+                  [(ngModel)]="afficherdeuxsemaines"
+                  class="form-check-input"
+                  type="checkbox"
+                  [value]="-1"
+                  id="flexCheckDefault"
+                  (change)="onChangeFood4($event)"
+                />
+                <label class="form-check-label" for="flexCheckDefault">
+                    Les deux prochaine semaines
+                </label>
+              </div>
+            </div>
+         
+            
+        </div>
+        <div class="row">
+         
+          <div class="col-md-3">
+
+            <div class="form-check">
+                <input
+                  mdbCheckbox
+                  class="form-check-input"
+                  type="checkbox"
+                  id="flexCheckDefault"
+                  [value]="-1"
+                  [(ngModel)]="affichertout"
+                  (change)="onChangeFood5($event)"
+                  />
+                <label class="form-check-label" for="flexCheckDefault">
+                Afficher tout
+                </label>
+              </div>
+            </div>
+         
+        </div>
+<br>
+<br>
+        <div class="row">
+          <span style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;" [hidden]="!msgonload">Aucun Mission Trouvée</span> 
+
+        </div>
+  
+    <div [hidden]="!affichertout">
+      <h4 style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">Tous les missions</h4><br>
+     <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Destination</th>
+          <th>Chauffeur</th>
+          <th>Vehicule</th>
+          <th>Date</th>
+          <th>Temps de depart</th>
+          <th>Temps d'arriver</th>
+        </tr>
+      </thead> 
+      <tbody>
+        <tr *ngFor="let m of missions | paginate: { itemsPerPage: 4, currentPage: p } "(click)="ShowDetail(m.id)">
+                                        
+            <td>{{m.adress}}</td>
+            <td>{{m.user.name}}</td>
+            <td>{{m.vehicule.matricule}}</td>
+            <td>{{m.date}}</td>
+            <td>{{m.departTime}}</td>
+            <td>{{m.arriveTime}} </td>
+           
+            
+      </tbody> 
+     </table>
+     <div style="text-align: center;" >
+
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+
+    </div>
+    </div> 
+    <div [hidden]="!afficherperiode">
+      <h4 style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;"></h4><br>
+     <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Destination</th>
+          <th>Chauffeur</th>
+          <th>Vehicule</th>
+          <th>Date</th>
+          <th>Temps de depart</th>
+          <th>Temps d'arriver</th>
+        </tr>
+      </thead> 
+      <tbody>
+        <tr *ngFor="let m of missionsdateselec "(click)="ShowDetail(m.id)">
+                                        
+            <td>{{m.adress}}</td>
+            <td>{{m.name}}</td>
+            <td>{{m.matricule}}</td>
+            <td>{{m.date}}</td>
+            <td>{{m.departTime}}</td>
+            <td>{{m.arriveTime}} </td>
+           
+            
+      </tbody> 
+     </table>
+
+    </div> 
+    <div [hidden]="!afficherparametre">
+      <h4 style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;"></h4><br>
+     <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Destination</th>
+          <th>Vehicule</th>
+          <th>Date</th>
+          <th>Temps de depart</th>
+          <th>Temps d'arriver</th>
+        </tr>
+      </thead> 
+      <tbody>
+        <tr *ngFor="let m of missionchercher "(click)="ShowDetail(m.id)">
+                                        
+            <td>{{m.adress}}</td>
+            <td>{{m.matricule}}</td>
+            <td>{{m.date}}</td>
+            <td>{{m.departTime}}</td>
+            <td>{{m.arriveTime}} </td>
+           
+            
+      </tbody> 
+     </table>
+
+    </div> 
+   <br>
+      <div [hidden]="!afficherajourdhui">
+      <h4 style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">Les missions d'aujourd'hui</h4><br>
+
+    <table class="table table-bordered" >
+
+      <thead>
+        <tr>
+          <th>Véhicule</th>
+          <th>Destination</th>
+          <th>Date</th>
+          <th>Temps de départ</th>
+          <th>Temps d'arrivé</th>
+        
+        </tr>
+      </thead>
+      <tbody>
+     
+        <tr *ngFor="let miss of missionaujourdui "(click)="ShowDetail(miss.id)">
+          <td>{{miss.marque}} Matricule {{miss.matricule}}</td>
+          <td>{{miss.adress}}</td>
+          <td>{{miss.date}}</td>
+          <td>{{miss.departTime}}</td>
+          <td>{{miss.arriveTime}}</td>
+
+          
+        </tr>
+      </tbody>
+      <span style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;" *ngIf="missionaujourdui.length ===0">Aucun Mission Trouvée</span> 
+
+    </table>
+  </div>
+
+  <div [hidden]="!affichercetsemaine">
+    <h4 style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">Les missions pour cette semaine</h4><br>
+
+    <table class="table table-bordered" >
+      <thead>
+        <tr>
+          <th>Véhicule</th>
+          <th>Destination</th>
+          <th>Date</th>
+          <th>Temps de départ</th>
+          <th>Temps d'arrivé</th>
+         
+        </tr>
+      </thead>
+      <tbody>
+     
+        <tr *ngFor="let miss of missionscetsemaine "(click)="ShowDetail(miss.id)">
+          <td>{{miss.marque}} Matricule {{miss.matricule}}</td>
+          <td>{{miss.adress}}</td>
+          <td>{{miss.date}}</td>
+          <td>{{miss.departTime}}</td>
+          <td>{{miss.arriveTime}}</td>
+
+        
+        </tr>
+      </tbody>
+      <span style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;" *ngIf="missionscetsemaine.length ===0">Aucun Mission Trouvée</span> 
+
+    </table>
+   
+  </div>
+
+    <div [hidden]="!afficherprochainesemaine">
+      <h4 style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">Les missions de la prochaine semaine</h4><br>
+
+      <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Véhicule</th>
+          <th>Destination</th>
+          <th>Date</th>
+          <th>Temps de départ</th>
+          <th>Temps d'arrivé</th>
+          
+        </tr>
+      </thead>
+      <tbody>
+     
+        <tr *ngFor="let miss of missionsemainceprochaine "(click)="ShowDetail(miss.id)">
+          <td>{{miss.marque}} Matricule {{miss.matricule}}</td>
+          <td>{{miss.adress}}</td>
+          <td>{{miss.date}}</td>
+          <td>{{miss.departTime}}</td>
+          <td>{{miss.arriveTime}}</td>
+
+         
+        </tr>
+      </tbody>
+      <span style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;" *ngIf="missionsemainceprochaine.length ===0">Aucun Mission Trouvée</span> 
+
+    </table>
+    
+  </div>
+
+  <div [hidden]="!afficherdeuxsemaines">
+    <h4 style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">Les missions pour les deux prochaines semaines</h4><br>
+
+    <table class="table table-bordered" >
+      <thead>
+        <tr>
+          <th>Véhicule</th>
+          <th>Destination</th>
+          <th>Date</th>
+          <th>Temps de départ</th>
+          <th>Temps d'arrivé</th>
+        
+        </tr>
+      </thead>
+      <tbody>
+     
+        <tr *ngFor="let miss of missionsdeuxsemaines "(click)="ShowDetail(miss.id)">
+          <td>{{miss.marque}} Matricule {{miss.matricule}}</td>
+          <td>{{miss.adress}}</td>
+          <td>{{miss.date}}</td>
+          <td>{{miss.departTime}}</td>
+          <td>{{miss.arriveTime}}</td>
+          
+        </tr>
+      </tbody>
+      <span style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;" *ngIf="missionsdeuxsemaines.length ===0">Aucun Mission Trouvée</span> 
+
+    </table>
+   
+  </div>
+  </div>
+</div>
+</div>
+
+  

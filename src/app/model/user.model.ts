@@ -5,6 +5,7 @@ export class User {
         tel:any="";
         email:any="";
         password:any="";
+        imagepath:any=""
     
 }
 

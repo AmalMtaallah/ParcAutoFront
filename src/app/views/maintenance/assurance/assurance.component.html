@@ -1,0 +1,105 @@
+<div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header" style="background-color: rgb(12, 124, 124);">
+               
+          <h3 style="color:white;font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">Assurance</h3>
+         
+      </div>
+        <div class="card-body">
+  <div class="animated fadeIn">
+   
+    <div class="row">
+      <div class="card-body">
+    
+    
+    
+    
+        <table class="table table-bordered ">
+          <thead>
+  
+          <tr >
+           <th>Détail Vehicule</th>
+            <th>Matricule</th>
+            <th>Marque</th>
+
+            <th>Date Dernier Contrat Assurace</th>
+            <th>Date d'expiration assurance 
+              <select (change)="selectmonth($event)" select  required name="dateexpire">
+                <option value="NULL" selected >---- select mois ----</option>
+                <option  value="1">janvier</option>
+                <option  value="2">fevrier</option>
+                <option  value="3">mars</option>
+                <option  value="4">avril</option>
+                <option  value="5">mai</option>
+                <option  value="6">juin</option>
+                <option  value="7">juillet</option>
+                <option  value="8">aout</option>
+                <option  value="9">september</option>
+                <option  value="10">october</option>
+                <option  value="11">november</option>
+                <option  value="12">december</option>
+
+              </select>  
+            </th>
+            <th>Update Contrat</th>
+          
+  
+           
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let m of assurance | paginate: { itemsPerPage: 6, currentPage: p }" >
+            <td> <button type="button"(click)="getVehiculeById(m.id)" class="btn btn-outline-info btn-xl">Détail</button></td>
+            <td>{{m.matricule}}</td>
+            <td>{{m.marque}}</td>
+         
+          <td>{{m.dernierAssurace}}</td>
+          <td>{{m.dateexpirationassurance}}</td>
+        <td>
+       
+            
+            <button *ngIf="m.dateexpirationassurance==dateactuelle" type="button" class="btn btn-danger" data-toggle="modal" (click)="getparam(m.id)" (click)="smallModal.show()">
+              Réinitialiser Assurance
+            </button>
+              
+          </td> 
+            
+  
+          
+          </tr>
+  
+          </tbody>
+        </table>
+  
+  
+        <div style="text-align: center;" >
+  
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  
+  
+        </div>
+  
+  
+      </div>
+      <div bsModal #smallModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm" role="document">
+          <div class="modal-content">
+            <form (ngSubmit)="AssuranceUpdate()" [formGroup]=" myForm" novalidate>
+            <div class="modal-body">
+              <p>Joindre le contrat ?</p>
+             
+             <input type="file"  formControlName="file" (change)="onSelectFile($event)"> 
+           
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" (click)="smallModal.hide()">Close</button>
+              <button type="submit" class="btn btn-primary" >Update</button>
+            </div>
+          </form>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div>
+      
+    
+  

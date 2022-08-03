@@ -1,0 +1,154 @@
+
+
+  <form [formGroup]="myForm" (ngSubmit)="ajouterVehicule()" class="form-horizontal" novalidate>
+
+ <div class="animated fadeIn">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card" [hidden]="f1">
+            <div class="card-header" style="background-color: rgb(12, 124, 124);">
+                <strong style="color:white">Informations Complémentaires véhicule</strong> 
+            </div>
+          <div class="card-body">
+            <fieldset class="form-group">
+                <label for="text-input" class="form-control-label">Marque<span style="color:red">*</span></label>             
+                 <div class="input-group">
+                <span class="input-group-prepend"><span class="input-group-text"><i class=" fa fa-xing"></i></span></span>
+                <input type="text" id="text-input" formControlName="marque"  class="form-control" name="marque">
+              </div>
+              <div *ngIf="myForm.controls['marque'].invalid && (myForm.controls['marque'].dirty || myForm.controls['marque'].touched)" class="help-block" style="color:red;font-weight:bold;" role="alert">
+                <span class="help-block" *ngIf="myForm.controls['marque'].errors.required">
+                    Champ Obligatoire !!!.
+                </span>
+            </div>
+            </fieldset>
+            <fieldset class="form-group">
+                <label for="text-input" class=" form-control-label">Modéle<span style="color:red">*</span></label>              
+                <div class="input-group">
+                <span class="input-group-prepend"><span class="input-group-text"><i class="fa fa-adn"></i></span></span>
+                <input type="text" id="text-input" formControlName="modele"  class="form-control" name="modele">
+              </div>
+              <div *ngIf="myForm.controls['modele'].invalid && (myForm.controls['modele'].dirty || myForm.controls['modele'].touched)" class="help-block" style="color:red;font-weight:bold;" role="alert">
+                <span class="help-block" *ngIf="myForm.controls['modele'].errors.required">
+                    Champ Obligatoire !!!.
+                </span>
+            </div>
+        </fieldset>
+       
+            <fieldset class="form-group">
+                <label for="text-input" class=" form-control-label">Couleur extérieure <span style="color:red">*</span> </label>              
+                <div class="input-group">
+                <span class="input-group-prepend"><span class="input-group-text"><i class="fa fa-yelp"></i></span></span>
+                <input type="text" id="text-input" formControlName="couleur"  class="form-control" name="couleur">
+              </div>
+              <div *ngIf="myForm.controls['couleur'].invalid && (myForm.controls['couleur'].dirty || myForm.controls['couleur'].touched)" class="help-block" style="color:red;font-weight:bold;" role="alert">
+                <span class="help-block" *ngIf="myForm.controls['couleur'].errors.required">
+                    Champ Obligatoire !!!.
+                </span>
+            </div>
+            </fieldset>
+          
+        
+            <fieldset class="form-group">
+                <label for="text-input" class=" form-control-label">Puissance (ch)<span style="color:red">*</span> </label>             
+                 <div class="input-group">
+                <span class="input-group-prepend"><span class="input-group-text"><i class="fa fa-bolt"></i></span></span>
+                <input type="text" id="text-input" formControlName="puissance" class="form-control" name="puissance"></div>              
+            </fieldset>
+            
+            <button type="button" class="btn btn-primary btn-sm" (click)="formulaire2()">
+                <i class="fa fa-arrow-right" ></i> Next
+            </button>
+          </div>
+        </div>
+      </div>
+    <div class="col-md-6">
+        <div class="card" [hidden]="f2">
+            <div class="card-header" style="background-color: rgb(12, 124, 124);">
+                <strong style="color:white">Information Générales</strong> 
+            </div>
+          <div class="card-body">
+            <fieldset class="form-group">
+                <label for="text-input" class=" form-control-label">Immatriculation<span style="color:red">*</span></label>             
+                 <div class="input-group">
+                <span class="input-group-prepend"><span class="input-group-text"><i class="fa fa-calculator"></i></span></span>
+                <input type="text" id="text-input" formControlName="matricule"  class="form-control" name="matricule">
+              </div>
+              <div *ngIf="myForm.controls['matricule'].invalid && (myForm.controls['matricule'].dirty || myForm.controls['matricule'].touched)" class="help-block" style="color:red;font-weight:bold;" role="alert">
+                <span class="help-block" *ngIf="myForm.controls['matricule'].errors.required">
+                    Champ Obligatoire !!!.
+                </span>
+            </div>
+            </fieldset>
+           
+          
+            
+            <fieldset class="form-group">
+              <label for="text-input" class=" form-control-label">Energie <span style="color:red">*</span></label>              
+              <select  class="form-group"   class="form-control" formControlName="energie"  required name="energie">
+                <option value="NULL" selected>---- Energie ----</option>
+                <option  value="diesel">Diesel</option>
+                <option  value="essence">Essence</option>
+              </select>             
+          </fieldset>
+          <fieldset class="form-group">
+            <label for="text-input" class=" form-control-label">Consommation Moyenne (L)<span style="color:red">*</span></label>             
+             <div class="input-group">
+            <span class="input-group-prepend"><span class="input-group-text"><i class="fa fa-calendar"></i></span></span>
+            <input class="form-control"  formControlName="consomation_moy" name="consomation_moy"  required placeholder="consomation_moy" type="text">              
+
+        </div>
+         
+        </fieldset>
+        <fieldset class="form-group">
+          <label for="text-input" class=" form-control-label">Capacité Réservoir (L)<span style="color:red">*</span></label>             
+           <div class="input-group">
+          <span class="input-group-prepend"><span class="input-group-text"><i class="fa fa-calendar"></i></span></span>
+          <input class="form-control" id="date-input" formControlName="maxreservoire" name="maxreservoire"  required placeholder="maxreservoire" type="text">              
+
+      </div>
+       
+      </fieldset>
+      <fieldset class="form-group">
+        <label for="text-input" class=" form-control-label">Date de la premiére mise en circulation<span style="color:red">*</span></label>             
+         <div class="input-group">
+        <span class="input-group-prepend"><span class="input-group-text"><i  class=" fa fa-calendar"></i></span></span>
+        <input class="form-control" id="date-input" formControlName="datepremiere" name="datepremiere"  required placeholder="date" type="date">              </div>
+
+    </fieldset>
+    <fieldset class="form-group">
+        <label for="text-input" class=" form-control-label">Date d'entré dans le parc <span style="color:red">*</span></label>             
+         <div class="input-group">
+        <span class="input-group-prepend"><span class="input-group-text"><i class="fa fa-calendar"></i></span></span>
+        <input class="form-control" id="date-input" formControlName="dateentre" name="dateentre"  required placeholder="date" type="date">              
+    </div>
+     
+    </fieldset>
+    <fieldset class="form-group">
+      <label for="text-input" class=" form-control-label">Date du Derniere Visite Technique<span style="color:red">*</span> </label>             
+       <div class="input-group">
+      <span class="input-group-prepend"><span class="input-group-text"><i  class=" fa fa-calendar"></i></span></span>
+      <input class="form-control" id="date-input" formControlName="dernierVisiteTechnique" name="dernierVisiteTechnique"  required placeholder="date" type="date">              </div>
+
+  </fieldset>
+  <fieldset class="form-group">
+    <label for="text-input" class=" form-control-label">Date du Derniere Contrat Assurance<span style="color:red">*</span></label>             
+     <div class="input-group">
+    <span class="input-group-prepend"><span class="input-group-text"><i  class=" fa fa-calendar"></i></span></span>
+    <input class="form-control" id="date-input" formControlName="dernierAssurace" name="dernierAssurace"  required placeholder="date" type="date">              </div>
+
+</fieldset>
+<div class="row">
+  <span *ngIf="usedMatricule==true" style="color:red;font-weight:bold">{{usedmatriculemsg}}</span>
+
+ </div>
+            <button type="submit" class="btn btn-primary btn-sm" [disabled]="myForm.invalid">
+                Ajouter Véhicule
+            </button>
+          </div>
+        </div>
+        
+      </div><!-- /.col -->
+    </div><!-- /.row -->
+  </div>
+  </form>

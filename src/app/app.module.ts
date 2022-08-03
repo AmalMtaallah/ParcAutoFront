@@ -33,6 +33,17 @@ import { ChartsModule } from 'ng2-charts';
 import { ToasterModule, ToasterService } from 'angular2-toaster';
 import { ForgotpassComponent } from './views/forgotpass/forgotpass.component';
 import { ResetPasswordComponent } from './views/reset-password/reset-password.component';
+// import { ChauffeurLayoutComponent } from './chauffeur/chauffeur-layout/chauffeur-layout.component';
+// import { DashbordChaufComponent } from './views/chauffeurInterface/dashbord-chauf/dashbord-chauf.component';
+// import { ChauffeurModule } from './views/chauffeurInterface/chauffeur.module';
+import { LogoutComponent } from './views/logout/logout.component';
+import { LogoutModule } from './views/logout/logout.module';
+import { DashboardComponent } from './views/dashboard/dashboard.component';
+import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
+import { HistoriqueCirculationComponent } from './views/historique-circulation/historique-circulation.component';
+import { ProfileadminComponent } from './views/profileadmin/profileadmin.component';
+//const config: SocketIoConfig = {url:'http://localhost:3000', options: {}};
+
 
 @NgModule({
   imports: [
@@ -51,7 +62,9 @@ import { ResetPasswordComponent } from './views/reset-password/reset-password.co
     ToasterModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+  // SocketIoModule.forRoot(config),
+
   ],
   declarations: [
     AppComponent,
@@ -62,6 +75,8 @@ import { ResetPasswordComponent } from './views/reset-password/reset-password.co
     RegisterComponent,
     ForgotpassComponent,
     ResetPasswordComponent,
+    // ChauffeurLayoutComponent,
+    // LogoutComponent
   ],
   providers: [{
     provide: LocationStrategy,

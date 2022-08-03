@@ -1,0 +1,16 @@
+.map-wrapper {
+  position:fixed;
+  width: 800px;
+  height: 800px;
+
+}
+
+.map-border {
+  border: 1px solid beige;
+  height: 460px;
+}
+
+#map {
+  height: 100%;
+  width: 100%;
+} 

@@ -1,0 +1,85 @@
+
+  <div class="animated fadeIn">
+    <div class="card">
+      <div class="card-header" style="background-color: rgb(12, 124, 124);">
+      <div class="row">
+        <div class="col-md-6">
+          <h3 style="color:white;font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">Chauffeurs Disponibles</h3>
+
+        </div>
+       <div class="col-md-6" style="text-align:right">
+
+      
+        <button type="button" routerLink="/gestion/ajouterchauffeur"class="btn btn-light" style="text-align: right;"><i class="fa fa-plus"></i> Add Chauffeur</button>
+        <button type="button" class="btn btn-light" (click)="downloadpdf()"><i class="cui-cloud-download icons" style="text-align: right;"></i> Download PDF</button>
+      </div>
+    </div>
+  </div>
+      <div class="card-body">
+        <div class="row mb-3">
+          <div class="col-md-4 offset-md-8">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fa fa-search"></i></span>
+              </div>
+              <!-- <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Search by name"/> -->
+              <input type="text" class="form-control"  placeholder="Search by name" (ngModelChange)="recherchemissionbyparametre(keyy.value)" #keyy="ngModel" ngModel name="keyy"/>
+
+            </div>
+          </div>
+        </div>
+        <table *ngIf="chauffeurs" class="table table-bordered"  >
+          <thead>
+            <tr>
+              <th>Nom</th>
+              <th>Prénom</th>
+              <th>Email</th>
+              <th>Tel</th>
+              <th>Date de recrutement</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let chauf of chauffeurs | paginate: { itemsPerPage: 7, currentPage: p }" >
+                                            
+                <td>{{chauf.name}}</td>
+                <td>{{chauf.prenom}}</td>
+                <td>{{chauf.email}}</td>
+                <td>{{chauf.tel}} </td>
+                <td>{{chauf.created_at | date :'dd/MM/yyyy'}}</td>
+                <td>
+                <!-- <button type="button" class="btn btn-light" (click)="SuprimerChauffeur(chauf.id)"><i class="fa fa-trash-o"></i></button> -->
+                <button type="button" class="btn btn-light" data-toggle="modal" (click)="getparam(chauf.id)" (click)="smallModal.show()"><i class="fa fa-trash-o"></i></button>
+
+                <button type="button" class="btn btn-light " (click)="detailsChauffeur(chauf.id)"><i class="fa fa-eye"></i></button>
+                <button type="button" class="btn btn-light " (click)="updateChauffeur(chauf.id)"><i class="fa fa-pencil" ></i></button>
+                </td>
+                 </tr>
+          </tbody>
+         
+        </table>
+        <div style="text-align: center;" >
+  
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  
+  
+        </div>
+      </div>
+    </div>
+  </div>
+  <div  bsModal #smallModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <p>Êtes-vous sûr de vouloir supprimer ?</p>
+         
+       
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="smallModal.hide()">Close</button>
+          <button type="submit" class="btn btn-danger" (click)="SuprimerChauffeur(d)">supprimer</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div>
+  

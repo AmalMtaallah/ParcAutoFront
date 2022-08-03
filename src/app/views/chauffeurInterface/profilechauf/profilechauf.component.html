@@ -1,0 +1,324 @@
+
+  <div [hidden]="form1" class="animated fadeIn">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card" >
+          <div class="card-header" style="background-color: rgb(12, 124, 124);">
+            <strong  style="color:white"> Information Générales </strong>
+          </div>
+          <div    class="card-body">
+            <div class="row">
+              <div class="col-md-3">
+            <fieldset class="form-group">
+
+              <div class="input-group">
+                <img  class="img-account-profile rounded-circle mb-2" style="border-radius: 50% !important;height: 10rem;margin-left: 10px; " [src]=" user.image ?imagedirectory+user.image :''" class="img-avatar" />
+
+              </div>
+
+            </fieldset>
+              </div>
+              <div class="col-md-9">
+
+                <div class="form-group row">
+
+                  <div class="col-md-6">
+
+                    <fieldset class="form-group">
+                      <label for="text-input" class=" form-control-label">Name</label>             
+                       <div class="input-group">
+                      <input type="text" id="text-input"  disabled ngModel="{{user.name}} " class="form-control" name="marque">
+                    </div>
+                  </fieldset>
+
+                  </div>
+                  <div class="col-md-6">
+
+                      <label class=" form-control-label">Prénom</label>
+                      <div class="input-group">
+
+                        <input type="text"  disabled [ngModel]="user.prenom"     class="form-control" name="prenom">
+                      </div>
+
+                  </div>
+
+                </div>
+                <div class="form-group row">
+                  <div class="col-md-6">
+
+                    <label class=" form-control-label">Téléphone</label>
+                    <div class="input-group">
+
+                      <input type="text"  disabled ngModel="{{user.tel}} "   name="tel"   class="form-control">
+                    </div>
+
+
+                  </div>
+                  <div class="col-md-6">
+
+                    <label  class=" form-control-label">email</label>
+                    <div  class="input-group">
+                      <input type="text"     disabled ngModel="{{user.email}}" name="email"    class="form-control"/>
+                    </div>
+
+                  </div>
+
+                </div>
+
+                <div  class="form-group row">
+                <div class="col-md-6">
+
+                  <label class=" form-control-label">Cin</label>
+                  <div class="input-group">
+
+                    <input type="text" disabled ngModel="{{user.cin}}" name="cin"     class="form-control">
+                  </div>
+
+                </div>
+                <div class="col-md-6">
+
+                  <label class=" form-control-label">Adresse</label>
+                  <div class="input-group">
+
+                    <input type="text"  disabled ngModel="{{user.adress}} "    name="adress"  class="form-control">
+                  </div>
+
+
+                </div>
+
+                </div>
+
+                <br>
+                <div style="padding-left: 80px;" class="form-group row">
+                  <div class="col-md-4">
+
+                    <button type="button" (click)="showchangerCoordonnes()" class="btn btn-square btn-block btn-dark">changer les coordonnées</button>
+
+                  </div>
+
+                  <div   class="col-md-4">
+
+                    <button type="button"    (click)="showchangerpassword()"  class="btn btn-square btn-block btn-dark">changer password</button>
+
+
+
+
+                  </div>
+
+
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+
+        </div>
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+    </div><!-- /.row -->
+  </div>
+
+
+
+
+
+
+<!-- Formulaire de modification des coordonnes -->
+
+  <div [hidden]="formchangercoordonness" class="animated fadeIn">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card" >
+          <div class="card-header" style="background-color: rgb(12, 124, 124);">
+            <strong  style="color:white"> Changer coordonnées </strong>
+          </div>
+          <div    class="card-body">
+            <form (ngSubmit)="update()"  [formGroup]="myForm" >
+            <div class="row">
+              <div class="col-md-12">
+
+                <div class="form-group row">
+                  <div class="col-md-6">
+
+                    <label  class=" form-control-label">Nom</label>
+                    <div  class="input-group">
+                      <input type="text"     [ngModel]="user.name" formControlName="name"  name="name"     class="form-control"/>
+                    </div>
+
+                  </div>
+                  <div class="col-md-6">
+
+                    <label class=" form-control-label">Prenom</label>
+                    <div class="input-group">
+
+                      <input type="text"   [ngModel]="user.prenom" formControlName="prenom"   name="prenom"   class="form-control">
+                    </div>
+
+                  </div>
+
+                </div>
+                <div class="form-group row">
+                  <div class="col-md-6">
+
+                    <label class=" form-control-label">Téléphone</label>
+                    <div class="input-group">
+
+                      <input type="text"  formControlName="tel"  [ngModel]="user.tel" name="tel"     class="form-control">
+                    </div>
+
+
+                  </div>
+                  <div class="col-md-6">
+
+                    <label  class=" form-control-label">email</label>
+                    <div  class="input-group">
+                      <input type="text"  [ngModel]="user.email" formControlName="email"   name="email"  class="form-control"/>
+                    </div>
+
+                  </div>
+
+                </div>
+
+                <div  class="form-group row">
+                  
+                  <div class="col-md-6">
+
+                    <label class=" form-control-label">Adresse</label>
+                    <div class="input-group">
+
+                      <input type="text"       [ngModel]="user.adress" formControlName="adress"   name="adress"  class="form-control">
+                    </div>
+
+
+                  </div>
+
+                </div>
+                <div  class="form-group row">
+                  
+                  <div class="col-md-6">
+
+                    <label class=" form-control-label">Cin</label>
+                    <div class="input-group">
+
+                      <input type="text"      [ngModel]="user.cin"  formControlName="cin"   name="cin"  class="form-control">
+                    </div>
+
+
+                  </div>
+
+                </div>
+                <div class="form-group row">
+                  
+                  <div class="col-md-6">
+
+                    <label  class=" form-control-label">photo</label>
+                    <div  class="input-group">
+                      <input type="file"      (change)="onSelectFile($event)" formControlName="image"  name="image"   class="form-control"/>
+                    </div>
+
+                  </div> 
+
+                </div>
+
+
+                <div  class="form-group row">
+                  <div class="col-md-12">
+
+                    <button type="submit" class="btn btn-square btn-block btn-dark">valider</button>
+
+                  </div>
+
+
+
+
+                </div>
+
+              </div>
+
+            </div>
+            </form>
+
+          </div>
+
+        </div>
+      </div>
+
+
+
+
+
+
+  
+
+    </div>
+  </div>
+
+  <!-- Formulaire de changement de password -->
+   <div [hidden]="formchangerpassword" class="animated fadeIn">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card" >
+          <div class="card-header" style="background-color: rgb(12, 124, 124);">
+            <strong  style="color:white"> Changer password </strong>
+          </div>
+          <div    class="card-body">
+            <form  #formchangepassword="ngForm" (ngSubmit)="changepassword(formchangepassword)"  >
+              <div class="row">
+
+                <div class="card-body">
+                  <fieldset class="form-group">
+
+                    <label class=" form-control-label">Ancien password</label>
+                    <div class="input-group">
+
+                      <input type="password"    name="ancienPassword"   ngModel   class="form-control" required>
+                    </div>
+
+                  </fieldset>
+
+                  <fieldset class="form-group">
+
+                    <label class=" form-control-label"> nouveau mot de passe</label>
+                    <div class="input-group">
+
+                      <input type="password"    name="password"   ngModel   class="form-control" required>
+                    </div>
+
+                  </fieldset>
+                  <fieldset class="form-group">
+
+                    <label class=" form-control-label">confirmer password</label>
+                    <div class="input-group">
+
+                      <input type="password"    name="password_confirmation"   ngModel   class="form-control" required>
+                    </div>
+
+                  </fieldset>
+                  <button type="submit"  [disabled]="formchangepassword.invalid" class="btn btn-square btn-block btn-dark">changer password</button>
+
+
+                </div>
+
+
+              </div>
+            </form>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>  
+
+

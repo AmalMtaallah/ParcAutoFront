@@ -1,0 +1,176 @@
+
+
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header" style="background-color: rgb(12, 124, 124);">
+                  
+        <strong style="color:white">Planifier Mission</strong> 
+    </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-sm-12 map-wrapper">
+            
+            
+              <div class="map-border">
+                <div id="map"></div>
+              </div>
+            
+            
+        </div><!--/.row-->
+        <br>
+        
+      </div>
+     <div class="row">
+      <div class="col-sm-12">
+        <form (ngSubmit)="ajouterMission()" [formGroup]=" myForm" novalidate> 
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                
+      
+              <div class="card-body">
+                
+                <div class="form-group row" >
+                  <label class="col-md-3 col-form-label" for="text-input">Destination</label>
+                  <div class="col col-md-3">
+          
+                   <input type="text"class="form-control" formControlName="destination" (blur)="searchCoordonate($event.target.value)">
+                   
+                   
+                    <div *ngIf="myForm.controls['destination'].invalid && (myForm.controls['destination'].dirty || myForm.controls['destination'].touched)" class="help-block" style="color:red" role="alert">
+                      <span class="help-block" *ngIf="myForm.controls['destination'].errors.required">
+                          This field is required.
+                      </span>
+            
+                  </div>
+               
+              </div>
+                  <label class="col-md-3 col-form-label" for="file-input">Date</label>
+                  <div class=" col col-md-3">
+                    <input class="form-control" id="date-input" formControlName="date" name="dateNaissance" ngModel required placeholder="date" type="date">
+                  <div *ngIf="myForm.controls['date'].invalid && (myForm.controls['date'].dirty || myForm.controls['date'].touched)" class="help-block" style="color:red" role="alert">
+                    <span class="help-block" *ngIf="myForm.controls['date'].errors.required">
+                        This field is required.
+                    </span>
+                </div>
+           </div>
+                </div>
+                <div class="form-group row">
+                
+            </div>
+        
+               
+                <div class="form-group row">
+                  <label class="col-md-3 col-form-label" for="text-input">Temps de depart</label>
+                  <div class="col-md-3">
+                    <div class="md-form md-outline">
+                      <input type="time" id="default-picker" class="form-control"formControlName="departTime" placeholder="Select time">
+                     
+                    </div>
+                       
+                        <div *ngIf="myForm.controls['departTime'].invalid && (myForm.controls['departTime'].dirty || myForm.controls['departTime'].touched)" class="help-block" style="color:red" role="alert">
+                          <span class="help-block" *ngIf="myForm.controls['departTime'].errors.required">
+                              This field is required.
+                          </span>
+                      </div>
+                  </div>
+                  <label class="col-md-3 col-form-label" for="disabled-input">Temps d'arriver</label>
+                  <div class="col-md-3">
+                    <div class="md-form md-outline">
+                      <input type="time" id="default-picker" class="form-control"formControlName="arriveTime"placeholder="Select time">
+                    
+                    </div>
+                  
+                    <div *ngIf="myForm.controls['arriveTime'].invalid && (myForm.controls['arriveTime'].dirty || myForm.controls['arriveTime'].touched)" class="help-block" style="color:red" role="alert">
+                      <span class="help-block" *ngIf="myForm.controls['arriveTime'].errors.required">
+                          This field is required.
+                      </span>
+            
+                  </div>
+              </div>
+                  
+                </div>
+               
+               
+                <!-- <div class="form-group row">
+                  
+                  <div class="col-md-9">
+                        <timepicker [(ngModel)]="mytimeArr" (change)="changedArr()" [hourStep]="hstep"
+                            [minuteStep]="mstep" [showMeridian]="ismeridian" formControlName="arriveTime"
+                            [readonlyInput]="!isEnabled"></timepicker>
+                           
+                        <div *ngIf="myForm.controls['arriveTime'].invalid && (myForm.controls['arriveTime'].dirty || myForm.controls['arriveTime'].touched)" class="help-block" style="color:red" role="alert">
+                          <span class="help-block" *ngIf="myForm.controls['arriveTime'].errors.required">
+                              This field is required.
+                          </span>
+                
+                      </div>
+                  </div>
+                </div> -->
+              
+                <div class="form-group row">
+                  <label class="col-md-3 col-form-label" for="disabled-input">chauffeur</label>
+                  <div class="col col-md-3">
+                        <select (change)="UpdateSelected($event)"  select  class="form-group"   class="form-control" formControlName="user_id" >
+              
+                          <option *ngFor="let chauff of chauffeurs"[value]="chauff.id">{{chauff.name}}</option>
+                        </select>
+                        <div *ngIf="myForm.controls['user_id'].invalid && (myForm.controls['user_id'].dirty || myForm.controls['user_id'].touched)" class="help-block" style="color:red" role="alert">
+                          <span class="help-block" *ngIf="myForm.controls['user_id'].errors.required">
+                              This field is required.
+                          </span>
+                
+                      </div>
+                  </div>
+                  <label class="col-md-3 col-form-label" for="disabled-input">Vehicule</label>
+                  <div class="col col-md-3">
+                    
+                    <select (change)="UpdateSelected2($event)"  select  class="form-group"   class="form-control" formControlName="vehicule_id" >
+            
+                      <option *ngFor="let v of vehicules"[value]="v.id">{{v.matricule}}</option>
+                    </select>
+                    <div *ngIf="myForm.controls['vehicule_id'].invalid && (myForm.controls['vehicule_id'].dirty || myForm.controls['vehicule_id'].touched)" class="help-block" style="color:red" role="alert">
+                      <span class="help-block" *ngIf="myForm.controls['vehicule_id'].errors.required">
+                          This field is required.
+                      </span>
+            
+                  </div>
+              </div>
+                </div>
+      
+                <div class="form-group row">
+                  
+                 
+                </div>
+      
+               
+      
+            <div class="card-footer" style="background-color: white;">
+              <button class="btn btn-primary mr-1" type="submit" [disabled]="myForm.invalid">Ajouter Chauffeur</button>
+              <button type="button" class="btn btn-outline-info" >Consulter Maps <i class="fa fa-map-marker" style="font-size:30px;color:red" (click)="test1click()"></i> </button>
+
+            </div>
+      </div></div>
+      </div>
+      
+      
+      
+       
+      
+      </div>
+      </form>
+      </div> 
+     </div> 
+    </div>
+  </div><!--/.col-->
+</div><!--/.row-->
+ 
+
+
+    
+         
+    
+
+ 

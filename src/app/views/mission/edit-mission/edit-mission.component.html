@@ -1,0 +1,179 @@
+
+
+
+<div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header" style="background-color: rgb(12, 124, 124);">
+                    
+          <strong style="color:white">Modifier Livraison</strong> 
+      </div>
+        <div class="card-body">
+         
+              
+       <div class="row">
+        <div class="col-sm-12">
+            <form (ngSubmit)="UpdateMission()" [formGroup]=" myForm"  *ngIf="mission"  novalidate> 
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="card">
+                      
+            
+                    <div class="card-body">
+                        <div class="row">
+                        <div class="col-md-6">
+                      
+                      <div class="form-group row" >
+                                           
+                                            <label class="col-md-6 col-form-label" for="file-input">Date</label>
+                                            <div class=" col col-md-6">
+                                            <input class="form-control" id="date-input"  [(ngModel)]="mission.date" formControlName="date" [(ngModel)]="dateval" name="dateNaissance" ngModel required placeholder="date" type="date">
+                                          
+                                    </div>
+                                </div>
+                                <div class="form-group row" >
+                                    <label class="col-md-6 col-form-label" for="text-input">Temps de Départ </label>
+                                        <div class="col-md-6">
+                                        <div class="md-form md-outline">
+                                            <input type="time" id="default-picker" class="form-control" formControlName="departTime"     [(ngModel)]="mission.departTime" placeholder="Select time">
+                                        
+                                        </div>
+                                            
+                                            
+                                        </div>
+                      </div>
+                      <div class="form-group row" >
+                      <label class="col-md-6 col-form-label" for="file-input">Adress</label>
+                      <div class=" col col-md-6">
+                        <input type="text"  class="form-control"  [(ngModel)]="mission.adress" formControlName="adress2" placeholder="Adress" (blur)="searcheCoordonate()">
+               
+              </div>
+        
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-6 col-form-label" for="disabled-input">chauffeur</label>
+                        <div class="col col-md-6">
+                            <select (change)="UpdateSelected($event)" class="form-group"   class="form-control" >
+                                <option selected  [(ngModel)]="chauffeur.id">{{chauffeur.name}}</option>
+                                <option value="dali">dali</option>
+                            </select>
+                            
+                        </div>
+                    </div>
+                        <div class="form-group row">
+                        <label class="col-md-6 col-form-label" for="disabled-input">Vehicule</label>
+                        <div class="col col-md-6">
+                        
+                        <select (change)="UpdateSelected2($event)" class="form-group"   class="form-control" >
+                            <option selected  [(ngModel)]="vehicule.id">{{vehicule.matricule}}</option>
+
+                            <option value="triki">Triki</option>
+                        </select>
+                        
+                    </div>
+          </div>
+                </div> 
+                      <div class="col-md-6 map-wrapper">
+            
+            
+                        <div class="map-border">
+                          <div id="map"></div>
+                        </div>
+                        
+                        
+                        </div><!--/.row-->
+                  </div>  
+               
+            </div>
+            </div>
+            </div> 
+            </div>
+            <div class="row">
+            <div class="col-md-6">
+            <h2 style="font-family: Georgia, 'Times New Roman', Times, 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">Info Destination</h2>
+            <div class="card">
+            
+            
+            <div class="card-body">
+               
+            <div class="form-group row" >
+                                  <label class="col-md-3 col-form-label" for="text-input">Telephone</label>
+                                  <div class="col col-md-3">
+                          
+                                  <input type="text"class="form-control" [(ngModel)]="mission.tel_Dest" formControlName="tel_Dest">
+                                  
+                                  
+                                 
+                              
+                              </div>
+                                 
+            </div>
+            
+            
+            
+            <div class="form-group row">
+                              <label class="col-md-3 col-form-label" for="text-input">Chargement</label>
+                              <div class="col-md-3">
+                              <div class="md-form md-outline">
+                                <input type="text"  class="form-control" [(ngModel)]="mission.chargement" formControlName="chargement" placeholder="chargement">
+                              
+                              </div>
+                                  
+                                 
+                              </div>
+                             
+              
+            </div>
+            
+            <div class="card-footer" style="background-color: white;">
+                <button class="btn btn-primary mr-1" type="submit" [disabled]="myForm.invalid">Modifier Livraison</button>
+                
+                
+                </div> 
+           
+                
+          
+            
+            
+            
+            
+            </div>
+            </div>
+            </div> 
+            <div class="col-md-6">
+                
+                <h2 style="font-family: Georgia, 'Times New Roman', Times, 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">Description</h2>
+                
+                
+  
+                
+                
+                    <div class="col col-md-12">   
+                        <quill-editor [(ngModel)]="mission.description" formControlName="description"></quill-editor>
+                    </div>              
+                                     
+                
+                
+                
+                
+                </div>
+            </div>
+            
+          
+            
+            
+            
+            </form>
+        </div> 
+       </div> 
+      </div>
+    </div><!--/.col-->
+  </div>
+ 
+  
+  
+      
+           
+      
+  
+   

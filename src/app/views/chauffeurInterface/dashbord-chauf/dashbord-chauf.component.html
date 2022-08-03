@@ -1,0 +1,50 @@
+<div class="col-lg-12" *ngIf=" user && user.usertype==='0'"> 
+<div class="col-lg-12">
+  <div class="card">
+      <div class="card-header">
+        <div><h2 style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">Hisotiques missions</h2></div>
+        <div class="border border-light p-3 mb-4"> 
+          
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+        
+            <input class="form-control col-md-6" id="date-input" width="50px"  name="key"  #key="ngModel" ngModel  required placeholder="Séléctioner une date" type="date" (blur)="getmessionbyperiode(key.value)">
+             </div>
+             <div class="col-md-6">
+              <input  type="search" style="float: right;" class="form-control col-md-6 "    (ngModelChange)="recherchemissionbyparametre(keyy.value)" #keyy="ngModel" ngModel name="keyy"  placeholder="Search"/>    
+          </div>
+        </div>
+     </div>
+      <div class="card-body">
+        <span style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;" *ngIf="missiontermin.length ===0">Aucun Mission Trouvée</span>  
+
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Véhicule</th>
+              <th>Destination</th>
+              <th>Temps de départ</th>
+              <th>Temps d'arrivé</th>
+              <th>Description</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let mis of missiontermin">
+              <td>{{mis.marque}}</td>
+              <td>{{mis.adress}}</td>
+              <td>{{mis.departTime}}</td>
+              <td>{{mis.arriveTime}}</td>
+              <td>{{mis.description}}</td>
+              <td>
+             <span class="badge badge-success">{{mis.etat}}</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      
+      </div>
+    </div>
+  </div>

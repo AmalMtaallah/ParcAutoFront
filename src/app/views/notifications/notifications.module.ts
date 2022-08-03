@@ -14,18 +14,21 @@ import { ModalsComponent } from './modals.component';
 
 // Notifications Routing
 import { NotificationsRoutingModule } from './notifications-routing.module';
-
+import { NotificationsComponent } from './notifications/notifications.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 @NgModule({
   imports: [
     CommonModule,
     NotificationsRoutingModule,
     AlertModule.forRoot(),
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    NgxPaginationModule,
   ],
   declarations: [
     AlertsComponent,
     BadgesComponent,
-    ModalsComponent
+    ModalsComponent,
+    NotificationsComponent
   ]
 })
 export class NotificationsModule { }

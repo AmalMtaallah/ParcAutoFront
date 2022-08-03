@@ -1,0 +1,13 @@
+.map-wrapper {
+    position:relative;
+    
+  }
+  
+  .map-border {
+    border: 1px solid beige;
+    height: 360px;
+  }
+  
+  #map {
+    height: 100%;
+  }

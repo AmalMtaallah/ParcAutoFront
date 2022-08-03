@@ -1,0 +1,82 @@
+<div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header" style="background-color: rgb(12, 124, 124);">
+               
+          <h3 style="color:white;font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">Vidange</h3>
+        
+          
+      </div>
+        <div class="card-body">
+  <div class="animated fadeIn">
+   
+    <div class="row">
+      <div class="card-body">
+    
+    
+    
+    
+        <table class="table table-bordered ">
+          <thead>
+  
+          <tr >
+            <th>Détail Vehicule</th>
+            <th>Matricule</th>
+            <th>Marque </th>
+            <th>Km/Parcourue vidange</th>
+            <th>Km/Parcouru véhicule</th>
+            <th></th>
+          
+  
+           
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let m of vidange | paginate: { itemsPerPage: 5, currentPage: p }">
+            <td> <button type="button"(click)="getVehiculeById(m.id)" class="btn btn-outline-info btn-circle btn-xl">Détail</button></td>
+            <td>{{m.matricule}}</td>
+          <td>{{m.marque}}</td>
+          <td>{{m.vidangeKM}}</td>
+          <td>{{m.kmparcouru}}</td>
+          <td>
+            <button *ngIf="m.vidangeKM >= 15000" type="button" class="btn btn-danger" data-toggle="modal" (click)="getparam(m.id)" (click)="smallModal.show()">
+              Réinitialiser Vidange
+            </button>
+              
+          </td> 
+            
+  
+          
+          </tr>
+  
+          </tbody>
+        </table>
+  
+  
+        <div style="text-align: center;" >
+  
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  
+  
+        </div>
+  
+  
+      </div>
+      <div bsModal #smallModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm" role="document">
+          <div class="modal-content">
+            <form (ngSubmit)="updatevidange()" [formGroup]=" myForm" novalidate>
+            <div class="modal-body">
+              <p>Joindre le facture !</p>
+             
+             <input type="file"  formControlName="file" (change)="onSelectFile($event)"> 
+           
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" (click)="smallModal.hide()">Close</button>
+              <button type="submit" class="btn btn-primary" >Update</button>
+            </div>
+          </form>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div>  

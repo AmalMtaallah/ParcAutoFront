@@ -1,3 +1,5 @@
+import { OnInit } from "@angular/core";
+
 interface NavAttributes {
   [propName: string]: any;
 }
@@ -31,412 +33,97 @@ export interface NavData {
 
 export const navItems: NavData[] = [
   {
-    name: 'Dashboard',
+    name: 'Espace Admin',
     url: '/dashboard',
-    icon: 'icon-speedometer',
-    badge: {
-      variant: 'info',
-      text: 'NEW'
-    }
+    icon: 'icon-user',
+   
   },
+ 
+  
   {
-    title: true,
-    name: 'Theme'
+    title: false,
+    name: ''
   },
+
   {
-    name: 'Colors',
-    url: '/theme/colors',
-    icon: 'icon-drop'
-  },
-  {
-    name: 'Typography',
-    url: '/theme/typography',
-    icon: 'icon-pencil'
-  },
-  {
-    title: true,
-    name: 'Components'
-  },
-  {
-    name: 'Chauffeurs',
-    url: '/base',
-    icon: 'icon-puzzle',
+    name: 'Gérer',
+    url: '/gestion',
+    icon: 'icon-user',
     children: [
-      {
-        name: 'Ajouter chaufeur',
-        url: '/base/addChauf',
-        icon: 'icon-puzzle'
-      },
+     
       {
         name: 'Chauffeurs',
-        url: '/base/chauffeurs',
-        icon: 'icon-puzzle'
-      },
-      {
-        name: 'Cards',
-        url: '/base/cards',
-        icon: 'icon-puzzle'
-      },
-      {
-        name: 'Carousels',
-        url: '/base/carousels',
-        icon: 'icon-puzzle'
-      },
-      {
-        name: 'Collapses',
-        url: '/base/collapses',
-        icon: 'icon-puzzle'
-      },
-      {
-        name: 'Pagination',
-        url: '/base/paginations',
-        icon: 'icon-puzzle'
-      },
-      {
-        name: 'Popovers',
-        url: '/base/popovers',
-        icon: 'icon-puzzle'
-      },
-      {
-        name: 'Progress',
-        url: '/base/progress',
-        icon: 'icon-puzzle'
-      },
-      {
-        name: 'Switches',
-        url: '/base/switches',
-        icon: 'icon-puzzle'
-      },
-      {
-        name: 'Tabs',
-        url: '/base/tabs',
-        icon: 'icon-puzzle'
-      },
-      {
-        name: 'Tooltips',
-        url: '/base/tooltips',
-        icon: 'icon-puzzle'
-      }
-    ]
-  },
-  {
-    name: 'Véhicules',
-    url: '/buttons',
-    icon: 'icon-cursor',
-    children: [
-      {
-        name: 'Ajouter vehicules',
-        url: '/buttons/addvehicule',
-        icon: 'icon-cursor'
+        url: '/gestion/chauffeurs',
       },
       {
         name: 'Véhicules',
-        url: '/buttons/vehicules',
-        icon: 'icon-cursor'
+        url: '/gestion/vehicules',
+      },
+    ]
+  },
+  {
+    name: ' Livraisons',
+    url: '/mission/missions',
+    icon: 'fa fa-truck',
+   
+  },
+  {
+    name: 'Maintenance',
+    url: '/maintenance',
+    icon: 'icon-settings',
+    children: [
+     
+      {
+        name: 'Assurance',
+        url: '/maintenance/assurance',
+      },{
+        name: 'Visite Technique',
+        url: '/maintenance/visiteTech',
+      },
+      {
+        name: 'Changement Pneux',
+        url: '/maintenance/pneux',
+      },
+      {
+        name: 'Vidange',
+        url: '/maintenance/vidange',
       },
      
-     
-      
     ]
   },
+
   {
-    name: 'Charts',
-    url: '/charts',
-    icon: 'icon-pie-chart'
+    name: 'Live Cart',
+    url: '/live-cart',
+    icon: 'icon-flag',
   },
   {
-    name: 'Editors',
-    url: '/editors',
-    icon: 'fa fa-code',
-    children: [
-      {
-        name: 'Text Editors',
-        url: '/editors/text-editors',
-        icon: 'icon-note',
-        badge: {
-          variant: 'danger',
-          text: 'PRO'
-        }
-      },
-      {
-        name: 'Code Editors',
-        url: '/editors/code-editors',
-        icon: 'fa fa-code',
-        badge: {
-          variant: 'danger',
-          text: 'PRO'
-        }
-      }
-    ]
+    icon: 'icon-layers',
+    name: 'Histo Maintenance',
+    url: '/maintenance/historique',
   },
   {
-    name: 'Forms',
-    url: '/forms',
-    icon: 'icon-note',
-    children: [
-      {
-        name: 'Basic Forms',
-        url: '/forms/basic-forms',
-        icon: 'icon-note'
-      },
-      {
-        name: 'Advanced',
-        url: '/forms/advanced-forms',
-        icon: 'icon-note',
-        badge: {
-          variant: 'danger',
-          text: 'PRO'
-        }
-      },
-      {
-        name: 'Validation',
-        url: '/forms/validation-forms',
-        icon: 'icon-note',
-        badge: {
-          variant: 'danger',
-          text: 'PRO'
-        }
-      },
-    ]
+    icon: 'icon-layers',
+    name: 'Historique Circulation',
+    url: '/historiquecirc',
   },
-  {
-    name: 'Google Maps',
-    url: '/google-maps',
-    icon: 'icon-map',
-    badge: {
-      variant: 'danger',
-      text: 'PRO'
-    }
-  },
-  {
-    name: 'Icons',
-    url: '/icons',
-    icon: 'icon-star',
-    children: [
-      {
-        name: 'CoreUI Icons',
-        url: '/icons/coreui-icons',
-        icon: 'icon-star',
-        badge: {
-          variant: 'success',
-          text: 'NEW'
-        }
-      },
-      {
-        name: 'Flags',
-        url: '/icons/flags',
-        icon: 'icon-star'
-      },
-      {
-        name: 'Font Awesome',
-        url: '/icons/font-awesome',
-        icon: 'icon-star',
-        badge: {
-          variant: 'secondary',
-          text: '4.7'
-        }
-      },
-      {
-        name: 'Simple Line Icons',
-        url: '/icons/simple-line-icons',
-        icon: 'icon-star'
-      }
-    ]
-  },
-  {
-    name: 'Notifications',
-    url: '/notifications',
-    icon: 'icon-bell',
-    children: [
-      {
-        name: 'Alerts',
-        url: '/notifications/alerts',
-        icon: 'icon-bell'
-      },
-      {
-        name: 'Badges',
-        url: '/notifications/badges',
-        icon: 'icon-bell'
-      },
-      {
-        name: 'Modals',
-        url: '/notifications/modals',
-        icon: 'icon-bell'
-      },
-      {
-        name: 'Toastr',
-        url: '/notifications/toastr',
-        icon: 'icon-bell',
-        badge: {
-          variant: 'danger',
-          text: 'PRO'
-        }
-      }
-    ]
-  },
-  {
-    name: 'Plugins',
-    url: '/plugins',
-    icon: 'icon-energy',
-    children: [
-      {
-        name: 'Calendar',
-        url: '/plugins/calendar',
-        icon: 'icon-calendar',
-        badge: {
-          variant: 'danger',
-          text: 'PRO'
-        }
-      },
-      {
-        name: 'Draggable',
-        url: '/plugins/draggable-cards',
-        icon: 'icon-cursor-move',
-        badge: {
-          variant: 'danger',
-          text: 'PRO'
-        }
-      },
-      {
-        name: 'Spinners',
-        url: '/plugins/spinners',
-        icon: 'fa fa-spinner',
-        badge: {
-          variant: 'danger',
-          text: 'PRO'
-        }
-      }
-    ]
-  },
-  {
-    name: 'Tables',
-    url: '/tables',
-    icon: 'icon-list',
-    children: [
-      {
-        name: 'DataTable',
-        url: '/tables/datatable',
-        icon: 'icon-list',
-        badge: {
-          variant: 'danger',
-          text: 'PRO'
-        }
-      },
-      {
-        name: 'Standard Tables',
-        url: '/tables/tables',
-        icon: 'icon-list'
-      },
-    ]
-  },
-  {
-    name: 'Widgets',
-    url: '/widgets',
-    icon: 'icon-calculator',
-    badge: {
-      variant: 'info',
-      text: 'NEW'
-    }
-  },
-  {
-    divider: true
-  },
+ 
   {
     title: true,
-    name: 'Extras',
+    name: 'Paramétres',
   },
   {
-    name: 'Pages',
-    url: '/pages',
-    icon: 'icon-star',
-    children: [
-      {
-        name: 'Login',
-        url: '/login',
-        icon: 'icon-star'
-      },
-      {
-        name: 'Register',
-        url: '/register',
-        icon: 'icon-star'
-      },
-      {
-        name: 'Error 404',
-        url: '/404',
-        icon: 'icon-star'
-      },
-      {
-        name: 'Error 500',
-        url: '/500',
-        icon: 'icon-star'
-      }
-    ]
+    name: 'Déconnecter',
+    url: '/logout',
+    icon: 'icon-logout',
   },
   {
-    name: 'Disabled',
-    url: '/dashboard',
-    icon: 'icon-ban',
-    badge: {
-      variant: 'secondary',
-      text: 'NEW'
-    },
-    attributes: {disabled: true},
+    name: 'Modifier Profile',
+    url: '/profileAdmin',
+    icon: 'icon-settings',
   },
-  {
-    name: 'Apps',
-    url: '/apps',
-    icon: 'icon-layers',
-    children: [
-      {
-        name: 'Invoicing',
-        url: '/apps/invoicing',
-        icon: 'icon-speech',
-        children: [
-          {
-            name: 'Invoice',
-            url: '/apps/invoicing/invoice',
-            icon: 'icon-speech',
-            badge: {
-              variant: 'danger',
-              text: 'PRO'
-            }
-          }
-        ]
-      },
-      {
-        name: 'Email',
-        url: '/apps/email',
-        icon: 'icon-speech',
-        children: [
-          {
-            name: 'Inbox',
-            url: '/apps/email/inbox',
-            icon: 'icon-speech',
-            badge: {
-              variant: 'danger',
-              text: 'PRO'
-            }
-          },
-          {
-            name: 'Message',
-            url: '/apps/email/message',
-            icon: 'icon-speech',
-            badge: {
-              variant: 'danger',
-              text: 'PRO'
-            }
-          },
-          {
-            name: 'Compose',
-            url: '/apps/email/compose',
-            icon: 'icon-speech',
-            badge: {
-              variant: 'danger',
-              text: 'PRO'
-            }
-          }
-        ]
-      }
-    ]
-  }
-];
+ 
+  
+ ];
+
+

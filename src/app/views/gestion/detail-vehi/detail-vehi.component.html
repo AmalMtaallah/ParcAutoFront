@@ -1,0 +1,151 @@
+<!-- <div class="col-sm-6">
+    <div class="card">
+      <div class="card-header">
+        <strong>Véhicule</strong>
+      </div>
+      <div class="card-body">
+        <div class="form-group">
+          <label for="company">Marque</label>
+          <input type="text" class="form-control" id="company" disabled ngModel="{{vehi.marque}}">
+        </div>
+        <div class="form-group">
+          <label for="vat">Modéle</label>
+          <input type="text" class="form-control" id="vat" disabled ngModel="{{vehi.modele}}">
+        </div>
+        <div class="form-group">
+          <label for="street">Matricule</label>
+          <input type="text" class="form-control" id="street" disabled ngModel="{{vehi.matricule}}">
+        </div>
+      
+      </div>
+    </div>
+  </div><!--/.col-->
+
+
+    <div class="animated fadeIn">
+       <div class="row">
+         <div class="col-md-6">
+           <div class="card" >
+               <div class="card-header" style="background-color: rgb(12, 124, 124);">
+                   <strong style="color:white">Informations Complémentaires véhicule</strong> 
+               </div>
+             <div class="card-body">
+               <fieldset class="form-group">
+                   <label for="text-input" class=" form-control-label">Marque</label>             
+                    <div class="input-group">
+                   <span class="input-group-prepend"><span class="input-group-text"><i class=" fa fa-xing"></i></span></span>
+                   <input type="text" id="text-input"  disabled ngModel="{{vehi.marque}} " class="form-control" name="marque">
+                 </div>
+               </fieldset>
+               
+               <fieldset class="form-group">
+                   <label for="text-input" class=" form-control-label">Modéle</label>              
+                   <div class="input-group">
+                   <span class="input-group-prepend"><span class="input-group-text"><i class="fa fa-adn"></i></span></span>
+                   <input type="text" id="text-input"   disabled ngModel="{{vehi.modele}}" class="form-control" name="modele">
+                 </div>
+           </fieldset>
+          
+               <fieldset class="form-group">
+                   <label for="text-input" class=" form-control-label">Couleur extérieure </label>              
+                   <div class="input-group">
+                   <span class="input-group-prepend"><span class="input-group-text"><i class="fa fa-yelp"></i></span></span>
+                   <input type="text" id="text-input"    disabled ngModel="{{vehi.couleur}}"  class="form-control" name="couleur">  </div>
+               </fieldset>
+             
+               <fieldset class="form-group">
+                   <label for="text-input" class=" form-control-label">Nombre de portes </label>              
+                   <div class="input-group">
+                   <span class="input-group-prepend"><span class="input-group-text"><i class="fa fa-car"></i></span></span>
+                   <input type="text" id="text-input" disabled ngModel="{{vehi.nbr}}"  class="form-control" name="nbr">        
+                   </div>
+               </fieldset>
+              
+               <fieldset class="form-group">
+                <label for="text-input" class=" form-control-label">Type de boite </label>             
+                 <div class="input-group">
+                <span class="input-group-prepend"><span class="input-group-text"><i class="fa fa-calculator"></i></span></span>
+                <input type="text" id="text-input"   disabled ngModel="{{vehi.boite}}"  class="form-control" name="matricule">
+              </div>
+            </fieldset>
+              
+               <fieldset class="form-group">
+                   <label for="text-input" class=" form-control-label">Puissance (ch) </label>             
+                    <div class="input-group">
+                   <span class="input-group-prepend"><span class="input-group-text"><i class="fa fa-bolt"></i></span></span>
+                   <input type="text" id="text-input"  disabled ngModel="{{vehi.puissance}}"  class="form-control" name="puissance"></div>              
+               </fieldset>
+              
+               
+             </div>
+           </div>
+         </div>
+       <div class="col-md-6">
+           <div class="card" >
+               <div class="card-header" style="background-color: rgb(12, 124, 124);">
+                   <strong style="color:white">Information Générales</strong> 
+               </div>
+             <div class="card-body">
+               <fieldset class="form-group">
+                   <label for="text-input" class=" form-control-label">Immatriculation</label>             
+                    <div class="input-group">
+                   <span class="input-group-prepend"><span class="input-group-text"><i class="fa fa-calculator"></i></span></span>
+                   <input type="text" id="text-input"   disabled ngModel="{{vehi.matricule}}"  class="form-control" name="matricule">
+                 </div>
+               </fieldset>
+             
+               <fieldset class="form-group">
+                   <label for="text-input" class=" form-control-label">Date de la premiére mise en circulation</label>             
+                    <div class="input-group">
+                   <span class="input-group-prepend"><span class="input-group-text"><i  class=" fa fa-calendar"></i></span></span>
+                   <input class="form-control" id="date-input" disabled  name="datepremiere" ngModel="{{vehi.datepremiere}}" required placeholder="date" type="date">              </div>
+   
+               </fieldset>
+               <fieldset class="form-group">
+                   <label for="text-input" class=" form-control-label">Date d'entré dans le parc </label>             
+                    <div class="input-group">
+                   <span class="input-group-prepend"><span class="input-group-text"><i class="fa fa-calendar"></i></span></span>
+                   <input class="form-control" id="date-input" disabled  ngModel="{{vehi.dateentre}}" name="dateentre"  required placeholder="date" type="date">              
+   
+               </div>
+                
+               </fieldset>
+               
+              
+             </div>
+           </div>
+           <!-- <div class="card" >
+               <div class="card-header" style="background-color: rgb(12, 124, 124);">
+                   <strong style="color:white">Conducteur</strong> 
+               </div>
+             <div class="card-body">
+               <div class="row">
+                   <div class="col-xs-12 col-12 col-md-6 form-group">
+   
+                   <div class="col col-md-3">  <label for="text-input" class=" form-control-label">Conducteur</label></div>
+                    <select  class="form-group"   class="form-control" (change)="onChangeChauff($event)"  teur" name="conducteur" required>
+                     <option value="NULL" selected disabled>----Select Conducteur ----</option>
+                     <option *ngFor="let chauf of chauffeurs"   value={{chauf.id}}>{{chauf.name}}</option>
+   
+                   </select>
+                   </div>
+               </div>
+               <div class="row">
+                 <div *ngIf="myForm.controls['conducteur'].invalid && (myForm.controls['conducteur'].dirty || myForm.controls['conducteur'].touched)" class="alert alert-danger" role="alert">
+                   <div class="col-13"*ngIf="myForm.controls['conducteur'].errors.required">
+                       This field is required.
+                 </div>
+               </div>
+                </div>
+                    
+                <button type="submit" class="btn btn-primary btn-sm">
+                 <i class="fa fa-dot-circle-o"></i> Submit
+             </button>
+               
+           
+             </div>
+           </div> -->
+           
+         </div><!-- /.col -->
+       </div><!-- /.row -->
+     </div>

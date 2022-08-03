@@ -1,25 +1,51 @@
-<div class="animated fadeIn">
+<div class="col-lg-12">
   <div class="card">
-    <div class="card-header">
-      <i class="icon-map"></i> Google Maps
-      <a href="https://coreui.io/pro/angular/" class="badge badge-danger ml-2">CoreUI Pro Component</a>
-      <div class="card-header-actions">
-        <a href="https://github.com/SebastianM/angular-google-maps" class="card-header-action" target="_blank"><small class="text-muted">docs</small></a>
-      </div>
-    </div>
+    <div class="card-header" style="background-color: rgb(12, 124, 124);">
+      
+      <h3 style="color:white;font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">Live Cart</h3>
+
+
+      
+  </div>
     <div class="card-body">
-      <small>{{ title }}</small>
-      <!-- this creates a google map on the page with the given lat/lng from -->
-      <!-- the component as the initial center of the map: -->
-      <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
-        <agm-marker *ngFor="let m of markers; let i = index"
-                    [latitude]="m.lat" [longitude]="m.lng"
-                    [label]="m.label" [title]="m.title" >
-          <agm-info-window [disableAutoPan]="false">
-            <a href="{{m.www}}" target="_blank"><strong>{{m.title}}</strong></a>
-          </agm-info-window>
-        </agm-marker>
-      </agm-map>
+      <table *ngIf="mission" class="table table-bordered">
+        <thead>
+          <tr>
+            
+            <th>Chauffeur</th>
+            <th>Vehicule</th>
+            <th>Destination</th>
+            
+            <th>Temps de depart</th>
+            
+            <th>Visualiser sur Maps</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let m of mission | paginate: { itemsPerPage: 6, currentPage: p } ">
+            <td>{{m.user.name}}</td> 
+            <td>{{m.vehicule.matricule}}</td>                          
+              <td>{{m.adress}}</td>
+              
+             
+              <td>{{m.departTime}}</td>
+              
+              <td>              
+                  <button type="button" class="btn btn-light" (click)="liveCart(m.id)"><i class="fa fa-map-marker"></i></button>
+              </td>
+          </tr> 
+        </tbody>
+      </table>
+      <ul class="pagination">
+        <li class="page-item"><a class="page-link" href="#">Prev</a></li>
+        <li class="page-item active">
+          <a class="page-link" href="#">1</a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item"><a class="page-link" href="#">4</a></li>
+        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+      </ul>
     </div>
   </div>
 </div>

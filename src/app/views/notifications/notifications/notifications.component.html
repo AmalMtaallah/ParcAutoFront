@@ -1,0 +1,37 @@
+
+  <div class="card-body">
+    <div><h2 style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">Notifications</h2></div>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+      
+         
+        </tr>
+      </thead>
+      <tbody>
+        <!-- <tr *ngFor="let m of notif| paginate: { itemsPerPage: 6, currentPage: p } "> -->
+          <tr *ngFor="let m of notif">
+
+                                        
+            <td>{{m.message}}</td>
+           
+            <td>              
+                <button type="button" class="btn btn-light"(click)="suppNotif(m.id)"><i class="fa fa-trash-o"></i></button>
+            </td>
+            <td>
+              {{m.created_at}}
+            </td>
+            
+      </tbody>
+    </table>
+    <ul class="pagination">
+      <li class="page-item"><a class="page-link" href="#">Prev</a></li>
+      <li class="page-item active">
+        <a class="page-link" href="#">1</a>
+      </li>
+      <li class="page-item"><a class="page-link" href="#">2</a></li>
+      <li class="page-item"><a class="page-link" href="#">3</a></li>
+      <li class="page-item"><a class="page-link" href="#">4</a></li>
+      <li class="page-item"><a class="page-link" href="#">Next</a></li>
+    </ul>
+  </div>

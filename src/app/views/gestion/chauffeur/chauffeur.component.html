@@ -1,0 +1,219 @@
+
+
+   <form (ngSubmit)="ajouterChauffeur()"  [formGroup]="myForm" class="needs-validation" >
+
+   <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header" style="background-color: rgb(12, 124, 124);">
+           <!-- <div  *ngIf="usedEmail==true" ngClass="status==1?'sufee-alert alert with-close alert-primary alert-dismissible fade show : sufee-alert alert with-close alert-danger alert-dismissible fade show">
+            
+            {{usedmailmessage}}
+        <button (click)="closeAlert()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+    </div>  -->
+          <strong style="color:white;font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">Coordonnés chauffeur</strong> 
+      </div>
+        <div class="card-body">
+          
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="text-input">Nom  <span style="color:red">*</span></label>
+              <div class="col-md-9">
+                <input type="text" id="text-input" name="name" class="form-control" formControlName="name">
+                <div *ngIf="myForm.controls['name'].invalid && (myForm.controls['name'].dirty || myForm.controls['name'].touched)" class="help-block" style="color:red;font-weight:bold" role="alert">
+                  <span class="help-block" *ngIf="myForm.controls['name'].errors.required">
+                      Champ Obligatoire !!!.
+                  </span>
+                  <span class="help-block" *ngIf="myForm.controls['name'].errors.pattern">
+                    il faut seulement des caractéres
+                  </span>
+              </div>
+              </div>
+            </div>
+
+           
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="text-input">Prénom  <span style="color:red">*</span></label>
+              <div class="col-md-9">
+                <input type="text" id="text-input" name="prenom" class="form-control" formControlName="prenom">
+                <div *ngIf="myForm.controls['prenom'].invalid && (myForm.controls['prenom'].dirty || myForm.controls['prenom'].touched)" class="help-block" style="color:red;font-weight:bold" role="alert">
+                  <span class="help-block" *ngIf="myForm.controls['prenom'].errors.required">
+                      Champ Obligatoire !!!.
+                  </span>
+                  <span class="help-block" *ngIf="myForm.controls['prenom'].errors.pattern">
+                    il faut seulement des caractéres
+                  </span>
+              </div>
+              </div>
+            </div>
+           
+           
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="disabled-input">Cin  <span style="color:red">*</span></label>
+              <div class="col-md-9">
+                <input type="text" id="disabled-input" name="cin" class="form-control" formControlName="cin">
+                <div *ngIf="myForm.controls['cin'].invalid && (myForm.controls['cin'].dirty || myForm.controls['cin'].touched)" class="help-block" style="color:red;font-weight:bold" role="alert">
+                  <span class="help-block" *ngIf="myForm.controls['cin'].errors.required">
+                    Champ Obligatoire !!!.
+                  </span>
+                  <span class="help-block" *ngIf="myForm.controls['cin'].errors.pattern">
+                    il faut seulement des chiffres :
+                  </span>
+                <span class="help-block" *ngIf="myForm.controls['cin'].errors">
+                   8 chiffres obligatoires
+              </span>
+             
+              </div> 
+              </div>
+              
+            </div>
+    
+              <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="email-input">Email  <span style="color:red">*</span></label>
+                <div class="col-md-9">
+                  <input type="email" id="email-input" name="email" class="form-control" formControlName="email" autocomplete="email">
+                  <div *ngIf="myForm.controls['email'].invalid && (myForm.controls['email'].dirty || myForm.controls['email'].touched)" class="help-block" style="color:red;font-weight:bold" role="alert">
+                    <span class="help-block" *ngIf="myForm.controls['email'].errors.required">
+                        Champ Obligatoire !!!.
+                    </span>
+                    <div *ngIf="myForm.controls['email'].errors.email">
+                      Email Invalide
+                </div>
+                </div>            </div>
+              </div>
+              
+          
+             
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="email-input">Tel  <span style="color:red">*</span></label>
+              <div class="col-md-9">
+                <input type="text" id="email-input" name="tel" class="form-control" formControlName="tel" autocomplete="tel">
+                
+                <div *ngIf="myForm.controls['tel'].invalid && (myForm.controls['tel'].dirty || myForm.controls['tel'].touched)" class="help-block" style="color:red;font-weight:bold" role="alert">
+                  <span class="help-block" *ngIf="myForm.controls['tel'].errors.required">
+                      Champs Obligatoires.
+                  </span>
+                  <span class="help-block" *ngIf="myForm.controls['tel'].errors.pattern">
+                    il faut seulement des chiffres :
+                  </span>
+                <span class="help-block" *ngIf="myForm.controls['tel'].errors">
+                  composé de 8 chiffres
+              </span>
+            
+        
+                </div>         
+             </div>
+            </div>
+            
+        
+    
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="text-input">Adresse  <span style="color:red">*</span></label>
+              <div class="col-md-9">
+                <input type="text" id="text-input" name="adress" class="form-control" formControlName="adress">
+                <div *ngIf="myForm.controls['adress'].invalid && (myForm.controls['adress'].dirty || myForm.controls['adress'].touched)" class="help-block" style="color:red;font-weight:bold" role="alert">
+                  <span class="help-block" *ngIf="myForm.controls['adress'].errors.required">
+                      Champ Obligatoire !!!.
+                  </span>
+              </div>        
+              </div>
+            </div>
+            
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="text-input">Date Naissance<span style="color:red">*</span></label>
+              <div class="col-md-9">
+                <input class="form-control" id="date-input" formControlName="datenaiss" name="datenaiss"  required placeholder="date" type="date">              </div>
+                <div *ngIf="myForm.controls['datenaiss'].invalid && (myForm.controls['datenaiss'].dirty || myForm.controls['datenaiss'].touched)" class="help-block" style="color:red;font-weight:bold" role="alert">
+                  <span class="help-block" *ngIf="myForm.controls['datenaiss'].errors.required">
+                      Champ Obligatoire !!!.
+                  </span>
+                  <span class="help-block" *ngIf="myForm.controls['datenaiss'].errors">
+                    Date Invalid.
+                </span>
+              </div>        
+              </div>
+                    
+            
+
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="file-input">Image  <span style="color:red">*</span></label>
+              <div class="col-md-9">
+               <input class="form-control" id="lastName" type="file" (change)="onSelectFile($event)" name="image" required formControlName="image">              </div>
+               <div *ngIf="myForm.controls['image'].invalid && (myForm.controls['image'].dirty || myForm.controls['image'].touched)" class="help-block" style="color:red;font-weight:bold" role="alert">
+                <span class="help-block" *ngIf="myForm.controls['image'].errors.required">
+                    Champ Obligatoire !!!.
+                </span>
+            </div>
+              </div>
+           
+            
+        </div>
+        
+      </div>
+     
+    </div>
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header" style="background-color: rgb(12, 124, 124);">
+          <strong style="color:white;font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">Information Permis</strong> 
+      </div>
+        <div class="card-body">
+          <fieldset class="form-group">
+            <label for="text-input" class=" form-control-label">Numéro de Permis  <span style="color:red">*</span></label>             
+             <div class="input-group">
+            <span class="input-group-prepend"><span class="input-group-text"><i  class=" fa fa-neuter"></i></span></span>
+            <input class="form-control" id="date-input" formControlName="numpermis" name="numpermis"  required placeholder="Num_Permis" type="text">              </div>
+
+        </fieldset>
+        <fieldset class="form-group">
+          <label for="text-input" class=" form-control-label">Date Sortie Permis  <span style="color:red">*</span></label>             
+           <div class="input-group">
+          <span class="input-group-prepend"><span class="input-group-text"><i  class=" fa fa-calendar"></i></span></span>
+          <input class="form-control" id="date-input" formControlName="datesortie" name="datesortie"  required placeholder="date" type="date">            
+           </div>
+           <div *ngIf="myForm.controls['datesortie'].invalid && (myForm.controls['datesortie'].dirty || myForm.controls['datesortie'].touched)" class="help-block" style="color:red;font-weight:bold" role="alert">
+            <span class="help-block" *ngIf="myForm.controls['datesortie'].errors.required">
+                Champ Obligatoire !!!.
+            </span>
+            <span class="help-block" *ngIf="myForm.controls['datesortie'].errors">
+              Date Invalid.
+          </span>
+        </div> 
+        
+
+      </fieldset>
+      <fieldset class="form-group">
+        <label for="text-input" class=" form-control-label">Date fin delai  <span style="color:red">*</span></label>             
+         <div class="input-group">
+        <span class="input-group-prepend"><span class="input-group-text"><i  class=" fa fa-calendar"></i></span></span>
+     <input class="form-control" id="date-input" formControlName="datefin" name="datefin"   required placeholder="date" type="date">  
+                   </div> 
+                   <div *ngIf="myForm.controls['datefin'].invalid && (myForm.controls['datefin'].dirty || myForm.controls['datefin'].touched)" class="help-block" style="color:red;font-weight:bold" role="alert">
+                    <span class="help-block" *ngIf="myForm.controls['datefin'].errors.required">
+                        Champ Obligatoire !!!.
+                    </span>
+                    <span class="help-block" *ngIf="myForm.controls['datefin'].errors">
+                      Date Invalid.
+                  </span>
+                </div> 
+    </fieldset>
+      <div class="card-footer" style="background-color: white;">
+       <div class="row">
+        <span *ngIf="usedEmail==true" style="color:red;font-weight:bold">{{usedmailmessage}}</span>
+
+       </div>
+      <div class="row">
+        <button class="btn btn-primary mr-1" type="submit" [disabled]="myForm.invalid" >Ajouter Chauffeur</button>
+
+      </div>
+      </div>
+    </div>
+      
+      
+      
+    </div><!--/.col-->
+  </div><!--/.row-->
+  
+</div>
+   </form>

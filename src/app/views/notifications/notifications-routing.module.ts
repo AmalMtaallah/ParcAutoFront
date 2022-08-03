@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AlertsComponent } from './alerts.component';
 import { BadgesComponent } from './badges.component';
 import { ModalsComponent } from './modals.component';
-
+import { NotificationsComponent } from './notifications/notifications.component';
 const routes: Routes = [
   {
     path: '',
@@ -14,33 +14,30 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'alerts'
+        redirectTo: 'notifications'
+      },
+      {
+        path: 'notifications',
+        component: NotificationsComponent,
+        data: {
+          title: 'Notifications'
+        }
       },
       {
         path: 'alerts',
         component: AlertsComponent,
         data: {
-          title: 'Alerts'
+          title: 'alerts'
         }
       },
       {
-        path: 'badges',
+        path: 'rappels',
         component: BadgesComponent,
         data: {
-          title: 'Badges'
+          title: 'rappels'
         }
       },
-      {
-        path: 'modals',
-        component: ModalsComponent,
-        data: {
-          title: 'Modals'
-        }
-      },
-      {
-        path: 'toastr',
-        loadChildren: () => import('./toastr/toastr.module').then(m => m.ToastrModule)
-      },
+     
     ]
   }
 ];
